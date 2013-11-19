@@ -1,0 +1,56 @@
+% layout 'standard';
+% content_for header => begin
+  %= stylesheet '/assets/pagedown/demo.css'
+  %= javascript '/assets/pagedown/Markdown.Converter.js'
+  %= javascript '/assets/pagedown/Markdown.Sanitizer.js'
+  %= javascript '/assets/pagedown/Markdown.Editor.js'
+  %= javascript '/assets/jquery.gracefulWebSocket.js'
+  %= javascript '/galileo-edit.js'
+% end
+
+%= javascript begin
+data = {
+  name  : "<%= $name  %>",
+  md    : "",
+  html  : "",
+  title : ""
+};
+
+function saveButton() {
+  data.title = $("#page-title").val();
+  sendViaWS("<%= url_for('storepage')->to_abs %>", data);
+}
+
+$(function () {
+  var converter = Markdown.getSanitizingConverter();
+  var editor = new Markdown.Editor(converter);
+  converter.hooks.chain("preConversion", function (text) {
+    data.md = text;
+    return text; 
+  });
+  converter.hooks.chain("postConversion", function (text) {
+    data.html = text;
+    return text; 
+  });
+  editor.run();
+});
+
+%= end
+
+<div class="wmd-panel">
+  <div class="well form-inline">
+    <input 
+      type="text" 
+      id="page-title" 
+      placeholder="Page Title" 
+      value="<%= $title_value %>"
+    >
+    <button class="btn" id="save-md" onclick="saveButton()">
+      Save Page
+    </button>
+  </div>
+  <div id="wmd-button-bar"></div>
+  <textarea class="wmd-input" id="wmd-input"><%= $input %></textarea>
+  <div id="wmd-preview" class="wmd-preview well"></div>
+</div>
+
