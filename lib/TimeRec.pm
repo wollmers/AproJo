@@ -1,13 +1,8 @@
 package TimeRec;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = 0.007;
+our $VERSION = 0.008;
 $VERSION = eval $VERSION;
-
-use File::Basename 'dirname';
-use File::Spec::Functions qw'rel2abs catdir';
-use File::ShareDir 'dist_dir';
-use Cwd;
 
 has db => sub {
   my $self = shift;
@@ -23,63 +18,25 @@ has db => sub {
   return $schema;
 };
 
-has home_path => $ENV{TIMEREC_HOME} || getcwd;
-
 has config_file => sub {
   my $self = shift;
   return $ENV{TIMEREC_CONFIG} if $ENV{TIMEREC_CONFIG}; 
 
-  return rel2abs( 'timerec.conf', $self->home_path );
+  return "/var/www/timerec/timerec.conf";
 };
 
 sub startup {
   my $app = shift;
-
-  # set home folder
-  $app->home->parse( $app->home_path );
-
-  {
-    # setup logging path
-    # code stolen from Mojolicious.pm
-    my $mode = $app->mode;
-
-    $app->log->path($app->home->rel_file("log/$mode.log"))
-      if -w $app->home->rel_file('log');
-  }
-
+  
   $app->plugin( Config => { 
     file => $app->config_file,
-    default => {
-      db_schema  => 'TimeRec::DB::Schema',
-      db_connect => [
-        'dbi:SQLite:dbname=' . $app->home->rel_file( 'timerec.db' ),
-        undef,
-        undef,
-        { sqlite_unicode => 1 },
-      ],
-      secret => 'MySecret',
-    },
   });
-
-  {
-    # use content from directories under lib/TimeRec/files or using File::ShareDir
-    my $lib_base = catdir(dirname(rel2abs(__FILE__)), 'TimeRec', 'files');
-
-    my $public = catdir($lib_base, 'public');
-    $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('TimeRec'), 'public');
-
-    my $templates = catdir($lib_base, 'templates');
-    $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('TimeRec'), 'templates');
-  }
-
-  # use commands from TimeRec::Command namespace
-  push @{$app->commands->namespaces}, 'TimeRec::Command';
-
+  
   $app->secret( $app->config->{secret} );
 
   $app->helper( schema => sub { shift->app->db } );
-
-  $app->helper( 'home_page' => sub{ '/page/home' } );
+  
+  $app->helper( 'home_page' => sub{ '/' } );
 
   $app->helper( 'auth_fail' => sub {
     my $self = shift;
@@ -88,7 +45,7 @@ sub startup {
     $self->redirect_to( $self->home_page );
     return 0;
   });
-
+  
   $app->helper( 'get_user' => sub {
     my ($self, $name) = @_;
     unless ($name) {
@@ -97,86 +54,19 @@ sub startup {
     return undef unless $name;
     return $self->schema->resultset('User')->single({name => $name});
   });
-
-  $app->helper( 'is_author' => sub {
-    my $self = shift;
-    my $user = $self->get_user(@_);
-    return undef unless $user;
-    return $user->is_author;
-  });
   $app->helper( 'is_admin' => sub {
     my $self = shift;
     my $user = $self->get_user(@_);
     return undef unless $user;
-    return $user->is_admin;
+    return $user->name eq 'admin';
   });
 
-  my %mem;
-  $app->helper(
-    flex_memorize => sub {
-      shift;
-      return \%mem unless @_;
+  my $routes = $app->routes;
 
-      return '' unless ref(my $cb = pop) eq 'CODE';
-      my ($name, $args)
-        = ref $_[0] eq 'HASH' ? (undef, shift) : (shift, shift || {});
+  # Normal route to controller
+  $routes->get('/')->to('front#index');
+  $routes->get('/front/:name')->to('front#page');
 
-      # Default name
-      $name ||= join '', map { $_ || '' } (caller(1))[0 .. 3];
-
-      # Expire old results
-      my $expires;
-      if (exists $mem{$name}) {
-        $expires = $mem{$name}{expires};
-        delete $mem{$name}
-          if $expires > 0 && $mem{$name}{expires} < time;
-      } else {
-        $expires = $args->{expires} || 0;
-      }
-
-      # Memorized result
-      return $mem{$name}{content} if exists $mem{$name};
-
-      # Memorize new result
-      $mem{$name}{expires} = $expires;
-      return $mem{$name}{content} = $cb->();
-    }
-  );
-
-  my $r = $app->routes;
-
-  $r->any( '/' => sub { my $self = shift; $self->redirect_to( $self->home_page ) });
-  $r->any( '/page/:name' )->to('page#show');
-  $r->post( '/login' )->to('user#login');
-  $r->any( '/logout' )->to('user#logout');
-
-  my $if_author = $r->under( sub {
-    my $self = shift;
-
-    return $self->auth_fail unless $self->is_author;
-
-    return 1;
-  });
-
-  $if_author->any( '/admin/menu' )->to('edit#edit_menu');
-  $if_author->any( '/edit/:name' )->to('edit#edit_page');
-  $if_author->websocket( '/store/page' )->to('edit#store_page');
-  $if_author->websocket( '/store/menu' )->to('edit#store_menu');
-  $if_author->post( '/store/page' )->to('edit#store_page_ajax');
-
-  my $if_admin = $r->under( sub {
-    my $self = shift;
-
-    return $self->auth_fail unless $self->is_admin;
-
-    return 1;
-  });
-
-  $if_admin->any( '/admin/users' )->to('admin#users');
-  $if_admin->any( '/admin/pages' )->to('admin#pages');
-  $if_admin->any( '/admin/user/:name' )->to('admin#user');
-  $if_admin->websocket( '/store/user' )->to('admin#store_user');
-  $if_admin->websocket( '/remove/page' )->to('admin#remove_page');
 }
 
 1;

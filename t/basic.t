@@ -15,7 +15,8 @@ use Test::Mojo;
 
 my $db = TimeRec::DB::Schema->connect('dbi:SQLite:dbname=:memory:');
 TimeRec::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin', $db);
-ok( $db->resultset('User')->single({name => 'admin'})->check_password('pass'), 'DB user checks out' );
+ok( $db->resultset('User')->single({name => 'admin'}), 'DB user works' );
+
 
 my $t = Test::Mojo->new(TimeRec->new(db => $db));
 $t->ua->max_redirects(2);

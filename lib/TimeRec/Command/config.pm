@@ -5,7 +5,7 @@ use Data::Dumper;
 use Term::Prompt qw/prompt/;
 use Getopt::Long;
 
-has description => "Write an optional configuration file for your TimeRec CMS application.\n";
+has description => "Write an optional configuration file for your TimeRec application.\n";
 has usage       => "usage: $0 config\n";
 
 sub run {
