@@ -1,0 +1,27 @@
+<!-- HEADER -->
+    <div class="container">
+        <!-- TOPNAV -->
+        <div class="row">
+            <div id="topnav" class="span12">   
+                <div class="controls align_right">                    
+    <span><a id="HyperLinkStart" href="/site">Start</a>
+                         |               
+                        Skin: <a id="skin" title="Ändern" href=""><strong><%= $skin %></strong></a>
+     </span>
+                </div>
+            </div>
+        </div><!-- END TOPNAV -->
+        
+        <!-- LOGO ROW -->    
+        <div class="row">
+            <div class="span4">
+                <a href="/site"><img src="/pub/skins/<%= $skin %>/img/logo.png" alt="Logo" ></a>
+            </div>
+            <div class="span2">
+                <span class="info"><b>STYLEGUIDE - DEV</b></span>
+            </div> 
+        </div><!-- END LOGO ROW -->
+ 
+    </div>       
+
+<!-- END HEADER -->

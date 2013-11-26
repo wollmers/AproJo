@@ -1,0 +1,15 @@
+% layout 'default';
+% title 'Testpage TimeRec';
+
+<div class="container">                                 
+<div class="row">
+<div class="span12"> 
+
+<h2>Testpage for TimeRec</h2>
+
+<p>It works!</p>
+
+
+</div>
+</div>
+</div>

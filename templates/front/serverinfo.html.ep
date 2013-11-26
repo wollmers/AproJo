@@ -1,0 +1,33 @@
+% layout 'default';
+% title 'Serverinfo';
+
+<div class="container">                                 
+<div class="row">
+<div class="span12">
+
+<h1>Serverinfo</h1> 
+
+<h2>%ENV</h2>
+
+<pre>
+<%= dumper \%ENV %>
+</pre>
+
+
+<h2>Perl @INC</h2>
+
+<pre>
+<%= dumper \@INC %>
+</pre>
+
+
+<h2>Perl %INC</h2>
+
+<pre>
+<%= dumper \%INC %>
+</pre>
+
+
+</div>
+</div>
+</div>
