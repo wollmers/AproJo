@@ -28,7 +28,7 @@ sub run {
 
   $self->inject_sample_data($user, $pass1, $full);
 
-  print "Database created! Run 'galileo daemon' to start the server.\n";
+  print "Database created! Run 'timerec daemon' to start the server.\n";
 }
 
 sub inject_sample_data {
@@ -37,16 +37,14 @@ sub inject_sample_data {
 
   my $user = shift or die "Must provide an administrative username";
   my $pass = shift or die "Must provide a password for $user";
-  my $full = shift || "Administrator";
+  my $alias = shift || "Administrator";
 
   $schema->deploy;
 
   my $admin = $schema->resultset('User')->create({
     name => $user,
-    #full => $full,
+    alias => $alias,
     password => $pass,
-    #is_author => 1,
-    #is_admin  => 1,
     globalRoleID => 1,
   });
 

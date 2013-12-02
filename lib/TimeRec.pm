@@ -21,7 +21,8 @@ has db => sub {
 has config_file => sub {
   my $self = shift;
   return $ENV{TIMEREC_CONFIG} if $ENV{TIMEREC_CONFIG}; 
-
+  return "$ENV{MOJO_HOME}/timerec.conf" if $ENV{MOJO_HOME};
+  return "$ENV{DOCUMENT_ROOT}/timerec.conf" if $ENV{DOCUMENT_ROOT};
   return "/var/www/timerec/timerec.conf";
 };
 
@@ -31,6 +32,8 @@ sub startup {
   $app->plugin( Config => { 
     file => $app->config_file,
   });
+  
+  $app->plugin('I18N');
   
   $app->secret( $app->config->{secret} );
 
@@ -65,7 +68,22 @@ sub startup {
 
   # Normal route to controller
   $routes->get('/')->to('front#index');
-  $routes->get('/front/:name')->to('front#page');
+  $routes->get('/front/*name')->to('front#page');
+  $routes->post('/save')->to('front#save');
+  $routes->post( '/login' )->to('user#login');
+  $routes->any( '/logout' )->to('user#logout');
+  
+  my $if_admin = $routes->under( sub {
+    my $self = shift;
+
+    return $self->auth_fail unless $self->is_admin;
+
+    return 1;
+  });
+
+  $if_admin->any( '/admin/users' )->to('admin#users');
+  $if_admin->any( '/admin/user/:name' )->to('admin#user');
+  $if_admin->post( '/store/user' )->to('admin#store_user');
 
 }
 

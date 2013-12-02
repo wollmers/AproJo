@@ -5,13 +5,13 @@ use warnings;
 use File::Basename 'dirname';
 use Cwd;
 BEGIN{
-  #$ENV{MOJO_MODE} ||= 'development';
+  $ENV{MOJO_MODE} ||= 'development';
   #$ENV{MOJO_MODE} = 'production';
-  #$ENV{MOJO_HOME} = Cwd::abs_path(dirname(__FILE__));
+  $ENV{MOJO_HOME} ||= Cwd::abs_path(dirname(__FILE__));
 }
 
-#use lib ( "$ENV{MOJO_HOME}/lib");
-use lib ( "/var/www/timerec/lib");
+use lib ( "$ENV{MOJO_HOME}/lib");
+#use lib ( "/var/www/timerec/lib");
 
 
 # Check if Mojo is installed
@@ -25,7 +25,7 @@ EOF
 
 # Application
 $ENV{MOJO_APP} = 'TimeRec';
-$ENV{TIMEREC_CONFIG} = "/var/www/timerec/timerec.conf";
+$ENV{TIMEREC_CONFIG} = "$ENV{MOJO_HOME}/timerec.conf";
 
 Mojolicious::Commands->start_app('TimeRec');
 
