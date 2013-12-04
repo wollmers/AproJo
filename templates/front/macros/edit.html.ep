@@ -1,0 +1,32 @@
+% my $columns = [schema->source($table)->columns];
+% my $order = lc($table).'_id';
+% my $object = lc($table);
+% my $result = schema->resultset($table)->single({$order => $id});
+% my $columns_info = schema->source($table)->columns_info($columns);
+
+  
+<form class="form-horizontal" action="/store/<%= $object %>" method="post">
+    % for my $column (@$columns) {
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="<%= $column %>"><%= l $column %></label>
+      <div class="controls">
+        <input class="input-xlarge" id="<%= $column %>" name="<%= $column %>"
+        % my $placeholder = $result ? $result->$column : '';
+               type="text"  value="<%= $placeholder %>">
+      </div>
+    </div>
+  </fieldset>
+    % }
+
+
+    <div class="control-group">
+        <div class="controls">
+            <div class="float_right">
+                <button type="submit" class="btn btn-primary"><%= l 'store' %> ▶</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+

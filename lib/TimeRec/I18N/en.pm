@@ -15,6 +15,7 @@ our %Lexicon = (
 
 'Login' => 'Login',
 'username' => 'Username',
+'name' => 'Name',
 'password' => 'Password',
 'keep logged in' => 'keep me logged in',
 'lost password?' => 'lost password?',

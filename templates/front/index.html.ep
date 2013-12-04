@@ -11,9 +11,13 @@
 
 <p><a href="/front/serverinfo">Serverinfo</a></p>
 
-<p><a href="/admin/user/admin">Admin user</a></p>
+<p><a href="/admin/user/0">New user</a></p>
 
 <p><a href="/admin/users">Admin users</a></p>
+
+<p><a href="/admin/address/0">New address</a></p>
+
+<p><a href="/admin/addresses">Admin addresses</a></p>
 
 <p>Hi and Ho</p>
 

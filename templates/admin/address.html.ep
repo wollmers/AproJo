@@ -1,0 +1,6 @@
+% layout 'default';
+% title "Administer Address: $id";
+
+% my $table = 'Address';
+
+<%= include 'front/macros/edit', table => $table %>

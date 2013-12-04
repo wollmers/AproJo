@@ -1,10 +1,10 @@
 % layout 'default';
 % title 'Administration: Users';
-% content_for banner => 'Administration: Users';
+% content_for banner => 'Administration: Addresses';
 
-% my $table = 'User';
+% my $table = 'Address';
 
-<p>Users</p>
+<p>Addresses</p>
 
 <%= include 'front/macros/crud', table => $table %>
 

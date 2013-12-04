@@ -1,13 +1,8 @@
+use utf8;
 package TimeRec::DB::Schema::Result::Contact;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-use strict;
-use warnings;
-
-use base 'DBIx::Class::Core';
-
 
 =head1 NAME
 
@@ -15,13 +10,21 @@ TimeRec::DB::Schema::Result::Contact
 
 =cut
 
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+=head1 TABLE: C<contacts>
+
+=cut
+
 __PACKAGE__->table("contacts");
 
 =head1 ACCESSORS
 
-=head2 contactID
+=head2 contact_id
 
-  accessor: 'contact_id'
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
@@ -83,13 +86,8 @@ __PACKAGE__->table("contacts");
 =cut
 
 __PACKAGE__->add_columns(
-  "contactID",
-  {
-    accessor          => "contact_id",
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-  },
+  "contact_id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "firstname",
   { data_type => "varchar", is_nullable => 0, size => 50 },
   "lastname",
@@ -109,11 +107,22 @@ __PACKAGE__->add_columns(
   "url",
   { data_type => "varchar", is_nullable => 0, size => 100 },
 );
-__PACKAGE__->set_primary_key("contactID");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</contact_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("contact_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2013-11-21 15:57:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PDc5mZOLA5Y4Yrq5JPkvWg
+# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-03 14:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gyO6CAqM7P3+ONq5lpWJ0A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

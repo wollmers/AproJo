@@ -1,13 +1,8 @@
+use utf8;
 package TimeRec::DB::Schema::Result::User;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-use strict;
-use warnings;
-
-use base 'DBIx::Class::Core';
-
 
 =head1 NAME
 
@@ -15,13 +10,21 @@ TimeRec::DB::Schema::Result::User
 
 =cut
 
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+=head1 TABLE: C<users>
+
+=cut
+
 __PACKAGE__->table("users");
 
 =head1 ACCESSORS
 
-=head2 userID
+=head2 user_id
 
-  accessor: 'user_id'
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
@@ -63,22 +66,16 @@ __PACKAGE__->table("users");
   is_nullable: 1
   size: 254
 
-=head2 globalRoleID
+=head2 global_role_id
 
-  accessor: 'global_role_id'
   data_type: 'integer'
   is_nullable: 0
 
 =cut
 
 __PACKAGE__->add_columns(
-  "userID",
-  {
-    accessor          => "user_id",
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-  },
+  "user_id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "name",
   { data_type => "varchar", is_nullable => 0, size => 160 },
   "alias",
@@ -91,15 +88,39 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", default_value => "", is_nullable => 0, size => 100 },
   "password",
   { data_type => "varchar", is_nullable => 1, size => 254 },
-  "globalRoleID",
-  { accessor => "global_role_id", data_type => "integer", is_nullable => 0 },
+  "global_role_id",
+  { data_type => "integer", is_nullable => 0 },
 );
-__PACKAGE__->set_primary_key("userID");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</user_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("user_id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<name>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
 __PACKAGE__->add_unique_constraint("name", ["name"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2013-11-21 15:57:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KDfAhs/skd8IzknEkVPv3A
+# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-03 14:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bwZ6N3Bq1+cOVfbZ27DHhQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

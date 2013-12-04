@@ -1,10 +1,12 @@
 package TimeRec::Admin;
 use Mojo::Base 'Mojolicious::Controller';
 
+use Data::Dumper;
+
 sub users { shift->render }
 sub user { shift->render }
 
-sub store_user {
+sub store_user_json {
   my $self = shift;
   $self->on( message => sub {
     my ($self, $message) = @_;
@@ -35,6 +37,40 @@ sub store_user {
   });
 }
 
+sub store_user {
+  my $self = shift;
+  my $params = [$self->req->param()];
+  
+  my $data = {};
+  
+  $data->{$_} = $self->req->param($_) ? $self->req->param($_) : 0 for ( @$params );
+
+  my $rs = $self->schema->resultset('User');
+
+  $rs->update_or_create(
+    $data
+  );
+  $self->render('/admin/users');
+}
+
+sub addresses { shift->render }
+sub address { shift->render }
+
+sub store_address {
+  my $self = shift;
+  my $params = [$self->req->param()];
+  
+  my $data = {};
+  
+  $data->{$_} = $self->req->param($_) ? $self->req->param($_) : 0 for ( @$params );
+
+  my $rs = $self->schema->resultset('Address');
+
+  $rs->update_or_create(
+    $data
+  );
+  $self->render('/admin/addresses');
+}
 
 1;
 

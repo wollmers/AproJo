@@ -1,64 +1,9 @@
 % layout 'default';
-% title "Administer User: $name";
+% title "Administer User: $id";
 
-% my $user = get_user( $name );
-% my $is_admin  = ($user and $user->name eq 'admin' ) ? "checked" : "";
+% my $user = schema->resultset('User')->single({user_id => $id});
+% my $is_admin  = $user ? ($user->name eq 'admin' ) ? "checked" : "" : "";
 
-<form class="form-horizontal" action="/store/user" method="post">
-  <legend>Names</legend>
-  <fieldset>
-    <div class="control-group">
-      <label class="control-label" for="name"><%= l 'username' %></label>
-      <div class="controls">
-        <input class="input-xlarge disabled" id="name" 
-               type="text" placeholder="<%= $user->name %>" disabled>
-      </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <div class="control-group">
-      <label class="control-label" for="name"><%= l 'alias' %></label>
-      <div class="controls">
-        <input class="input-xlarge disabled" id="alias" 
-               type="text" placeholder="<%= $user->alias %>" disabled>
-      </div>
-    </div>
-  </fieldset>
-  <legend><%= l 'Set a New Password' %></legend>
-  <fieldset>
-    <div class="control-group">
-      <label class="control-label" for="pass1"><%= l 'New Password' %></label>
-      <div class="controls">
-        <input type="password" class="input-xlarge" id="pass1">
-      </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <div class="control-group">
-      <label class="control-label" for="pass2"><%= l 'Repeat Password' %></label>
-      <div class="controls">
-        <input type="password" class="input-xlarge" id="pass2">
-        <p><%= l 'Only fill these boxes to set a new password (required for new account).' %></p>
-      </div>
-    </div>
-  </fieldset>
-  <legend>Permissions</legend>
-  <fieldset>
-    <div class="control-group">
-      <label class="control-label" for="is_admin">Administrator</label>
-      <div class="controls">
-        <label class="checkbox">
-          <input type="checkbox" class="input-xlarge" id="is_admin" <%= $is_admin %>>
-          <%= l 'Administrators can add and change users' %>
-        </label>
-      </div>
-    </div>
-  </fieldset>
-    <div class="control-group">
-        <div class="controls">
-            <div class="float_right">
-                <button type="submit" class="btn btn-primary"><%= l 'store' %> ▶</button>
-            </div>
-        </div>
-    </div>
-</form>
+% my $table = 'User';
+
+<%= include 'front/macros/edit', table => $table %>

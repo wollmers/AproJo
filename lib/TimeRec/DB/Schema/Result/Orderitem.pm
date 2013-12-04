@@ -1,13 +1,8 @@
+use utf8;
 package TimeRec::DB::Schema::Result::Orderitem;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-use strict;
-use warnings;
-
-use base 'DBIx::Class::Core';
-
 
 =head1 NAME
 
@@ -15,32 +10,37 @@ TimeRec::DB::Schema::Result::Orderitem
 
 =cut
 
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+=head1 TABLE: C<orderitems>
+
+=cut
+
 __PACKAGE__->table("orderitems");
 
 =head1 ACCESSORS
 
-=head2 orderitemID
+=head2 orderitem_id
 
-  accessor: 'orderitem_id'
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 orderID
+=head2 order_id
 
-  accessor: 'order_id'
   data_type: 'integer'
   is_nullable: 0
 
-=head2 line_item_ID
+=head2 line_item_id
 
-  accessor: 'line_item_id'
   data_type: 'integer'
   is_nullable: 0
 
-=head2 article_ID
+=head2 article_id
 
-  accessor: 'article_id'
   data_type: 'integer'
   is_nullable: 0
 
@@ -66,6 +66,7 @@ __PACKAGE__->table("orderitems");
 =head2 delivery_date
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   default_value: '0000-00-00'
   is_nullable: 0
 
@@ -90,19 +91,14 @@ __PACKAGE__->table("orderitems");
 =cut
 
 __PACKAGE__->add_columns(
-  "orderitemID",
-  {
-    accessor          => "orderitem_id",
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-  },
-  "orderID",
-  { accessor => "order_id", data_type => "integer", is_nullable => 0 },
-  "line_item_ID",
-  { accessor => "line_item_id", data_type => "integer", is_nullable => 0 },
-  "article_ID",
-  { accessor => "article_id", data_type => "integer", is_nullable => 0 },
+  "orderitem_id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
+  "order_id",
+  { data_type => "integer", is_nullable => 0 },
+  "line_item_id",
+  { data_type => "integer", is_nullable => 0 },
+  "article_id",
+  { data_type => "integer", is_nullable => 0 },
   "quantity",
   {
     data_type => "decimal",
@@ -120,7 +116,12 @@ __PACKAGE__->add_columns(
     size => [10, 2],
   },
   "delivery_date",
-  { data_type => "date", default_value => "0000-00-00", is_nullable => 0 },
+  {
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    default_value => "0000-00-00",
+    is_nullable => 0,
+  },
   "partial_shipment_allowed",
   { data_type => "varchar", is_nullable => 0, size => 255 },
   "transport",
@@ -128,11 +129,22 @@ __PACKAGE__->add_columns(
   "remark",
   { data_type => "varchar", is_nullable => 0, size => 255 },
 );
-__PACKAGE__->set_primary_key("orderitemID");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</orderitem_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("orderitem_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2013-11-21 15:57:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:q7gqr4bKT7n/LCCgrTkM3A
+# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-03 14:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:873Mweh5MssGOcpYFiiREg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

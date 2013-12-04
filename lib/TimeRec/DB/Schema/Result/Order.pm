@@ -1,13 +1,8 @@
+use utf8;
 package TimeRec::DB::Schema::Result::Order;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-use strict;
-use warnings;
-
-use base 'DBIx::Class::Core';
-
 
 =head1 NAME
 
@@ -15,13 +10,21 @@ TimeRec::DB::Schema::Result::Order
 
 =cut
 
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+=head1 TABLE: C<orders>
+
+=cut
+
 __PACKAGE__->table("orders");
 
 =head1 ACCESSORS
 
-=head2 orderID
+=head2 order_id
 
-  accessor: 'order_id'
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
@@ -32,9 +35,8 @@ __PACKAGE__->table("orders");
   is_nullable: 0
   size: 30
 
-=head2 customer_order_ID
+=head2 customer_order_id
 
-  accessor: 'customer_order_id'
   data_type: 'varchar'
   is_nullable: 0
   size: 50
@@ -42,12 +44,14 @@ __PACKAGE__->table("orders");
 =head2 order_date
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   default_value: '0000-00-00'
   is_nullable: 0
 
 =head2 delivery_date
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   default_value: '0000-00-00'
   is_nullable: 0
 
@@ -90,26 +94,26 @@ __PACKAGE__->table("orders");
 =cut
 
 __PACKAGE__->add_columns(
-  "orderID",
-  {
-    accessor          => "order_id",
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-  },
+  "order_id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "type",
   { data_type => "varchar", is_nullable => 0, size => 30 },
-  "customer_order_ID",
-  {
-    accessor => "customer_order_id",
-    data_type => "varchar",
-    is_nullable => 0,
-    size => 50,
-  },
+  "customer_order_id",
+  { data_type => "varchar", is_nullable => 0, size => 50 },
   "order_date",
-  { data_type => "date", default_value => "0000-00-00", is_nullable => 0 },
+  {
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    default_value => "0000-00-00",
+    is_nullable => 0,
+  },
   "delivery_date",
-  { data_type => "date", default_value => "0000-00-00", is_nullable => 0 },
+  {
+    data_type => "date",
+    datetime_undef_if_invalid => 1,
+    default_value => "0000-00-00",
+    is_nullable => 0,
+  },
   "currency",
   { data_type => "varchar", is_nullable => 0, size => 10 },
   "payment",
@@ -123,11 +127,22 @@ __PACKAGE__->add_columns(
   "remark",
   { data_type => "varchar", is_nullable => 0, size => 255 },
 );
-__PACKAGE__->set_primary_key("orderID");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</order_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("order_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2013-11-21 15:57:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:y8tUYz0zwhQJYq7DN8kXiw
+# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-03 14:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:q+gqHsBqZsow6OrT6BRgZg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

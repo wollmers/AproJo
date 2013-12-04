@@ -1,6 +1,8 @@
 package TimeRec::User;
 use Mojo::Base 'Mojolicious::Controller';
 
+use Data::Dumper;
+
 sub login {
   my $self = shift;
   my $name = $self->param('username');
@@ -10,6 +12,10 @@ sub login {
 print STDERR 'login user: ',$name,"\n";
 
   my $schema = $self->schema;
+
+ my $columns_info = $schema->source('User')->columns_info([$schema->source('User')->columns]);
+ 
+ print STDERR 'source user: ',Dumper($columns_info),"\n";
 
   my $user = $schema->resultset('User')->single({name => $name});
   if ($user and $user->password eq $pass) {

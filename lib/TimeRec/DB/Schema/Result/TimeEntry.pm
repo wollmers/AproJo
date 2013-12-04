@@ -1,13 +1,8 @@
+use utf8;
 package TimeRec::DB::Schema::Result::TimeEntry;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-use strict;
-use warnings;
-
-use base 'DBIx::Class::Core';
-
 
 =head1 NAME
 
@@ -15,13 +10,21 @@ TimeRec::DB::Schema::Result::TimeEntry
 
 =cut
 
-__PACKAGE__->table("timeEntries");
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+=head1 TABLE: C<time_entries>
+
+=cut
+
+__PACKAGE__->table("time_entries");
 
 =head1 ACCESSORS
 
-=head2 timeEntryID
+=head2 time_entry_id
 
-  accessor: 'time_entry_id'
   data_type: 'integer'
   is_auto_increment: 1
   is_nullable: 0
@@ -29,12 +32,14 @@ __PACKAGE__->table("timeEntries");
 =head2 start
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   default_value: '0000-00-00 00:00:00'
   is_nullable: 0
 
 =head2 end
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   default_value: '0000-00-00 00:00:00'
   is_nullable: 0
 
@@ -44,21 +49,20 @@ __PACKAGE__->table("timeEntries");
   default_value: 0
   is_nullable: 0
 
-=head2 userID
+duration in seconds
 
-  accessor: 'user_id'
+=head2 user_id
+
   data_type: 'integer'
   is_nullable: 0
 
-=head2 orderID
+=head2 order_id
 
-  accessor: 'order_id'
   data_type: 'integer'
   is_nullable: 0
 
-=head2 orderitemID
+=head2 orderitem_id
 
-  accessor: 'orderitem_id'
   data_type: 'integer'
   is_nullable: 0
 
@@ -72,9 +76,8 @@ __PACKAGE__->table("timeEntries");
   data_type: 'text'
   is_nullable: 1
 
-=head2 commentType
+=head2 comment_type
 
-  accessor: 'comment_type'
   data_type: 'tinyint'
   default_value: 0
   is_nullable: 0
@@ -97,9 +100,8 @@ __PACKAGE__->table("timeEntries");
   is_nullable: 1
   size: [10,2]
 
-=head2 statusID
+=head2 status_id
 
-  accessor: 'status_id'
   data_type: 'smallint'
   is_nullable: 0
 
@@ -111,60 +113,63 @@ __PACKAGE__->table("timeEntries");
 =cut
 
 __PACKAGE__->add_columns(
-  "timeEntryID",
-  {
-    accessor          => "time_entry_id",
-    data_type         => "integer",
-    is_auto_increment => 1,
-    is_nullable       => 0,
-  },
+  "time_entry_id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "start",
   {
-    data_type     => "datetime",
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
     default_value => "0000-00-00 00:00:00",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "end",
   {
-    data_type     => "datetime",
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
     default_value => "0000-00-00 00:00:00",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "duration",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
-  "userID",
-  { accessor => "user_id", data_type => "integer", is_nullable => 0 },
-  "orderID",
-  { accessor => "order_id", data_type => "integer", is_nullable => 0 },
-  "orderitemID",
-  { accessor => "orderitem_id", data_type => "integer", is_nullable => 0 },
+  "user_id",
+  { data_type => "integer", is_nullable => 0 },
+  "order_id",
+  { data_type => "integer", is_nullable => 0 },
+  "orderitem_id",
+  { data_type => "integer", is_nullable => 0 },
   "description",
   { data_type => "text", is_nullable => 1 },
   "comment",
   { data_type => "text", is_nullable => 1 },
-  "commentType",
-  {
-    accessor      => "comment_type",
-    data_type     => "tinyint",
-    default_value => 0,
-    is_nullable   => 0,
-  },
+  "comment_type",
+  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "cleared",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "location",
   { data_type => "varchar", is_nullable => 1, size => 50 },
   "approved",
   { data_type => "decimal", is_nullable => 1, size => [10, 2] },
-  "statusID",
-  { accessor => "status_id", data_type => "smallint", is_nullable => 0 },
+  "status_id",
+  { data_type => "smallint", is_nullable => 0 },
   "billable",
   { data_type => "tinyint", is_nullable => 1 },
 );
-__PACKAGE__->set_primary_key("timeEntryID");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</time_entry_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("time_entry_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2013-11-21 15:57:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:scNzjXmNX38/VihfW5iusA
+# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-03 14:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:k3dROXRMd+8svGanc04d4w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

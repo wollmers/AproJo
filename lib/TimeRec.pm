@@ -82,9 +82,12 @@ sub startup {
   });
 
   $if_admin->any( '/admin/users' )->to('admin#users');
-  $if_admin->any( '/admin/user/:name' )->to('admin#user');
+  $if_admin->any( '/admin/user/:id' )->to('admin#user');
   $if_admin->post( '/store/user' )->to('admin#store_user');
 
+  $if_admin->any( '/admin/addresses' )->to('admin#addresses');
+  $if_admin->any( '/admin/address/:id' )->to('admin#address');
+  $if_admin->post( '/store/address' )->to('admin#store_address');
 }
 
 1;

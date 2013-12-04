@@ -1,13 +1,8 @@
+use utf8;
 package TimeRec::DB::Schema::Result::GroupsUser;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
-
-use strict;
-use warnings;
-
-use base 'DBIx::Class::Core';
-
 
 =head1 NAME
 
@@ -15,47 +10,62 @@ TimeRec::DB::Schema::Result::GroupsUser
 
 =cut
 
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+=head1 TABLE: C<groups_users>
+
+=cut
+
 __PACKAGE__->table("groups_users");
 
 =head1 ACCESSORS
 
-=head2 groupID
+=head2 group_id
 
-  accessor: 'group_id'
   data_type: 'integer'
   is_nullable: 0
 
-=head2 userID
+=head2 user_id
 
-  accessor: 'user_id'
   data_type: 'integer'
   is_nullable: 0
 
-=head2 membershipRoleID
+=head2 membership_role_id
 
-  accessor: 'membership_role_id'
   data_type: 'integer'
   is_nullable: 0
 
 =cut
 
 __PACKAGE__->add_columns(
-  "groupID",
-  { accessor => "group_id", data_type => "integer", is_nullable => 0 },
-  "userID",
-  { accessor => "user_id", data_type => "integer", is_nullable => 0 },
-  "membershipRoleID",
-  {
-    accessor    => "membership_role_id",
-    data_type   => "integer",
-    is_nullable => 0,
-  },
+  "group_id",
+  { data_type => "integer", is_nullable => 0 },
+  "user_id",
+  { data_type => "integer", is_nullable => 0 },
+  "membership_role_id",
+  { data_type => "integer", is_nullable => 0 },
 );
-__PACKAGE__->set_primary_key("groupID", "userID");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</group_id>
+
+=item * L</user_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("group_id", "user_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2013-11-21 15:57:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PSotarRbtukGU8h5QjAlBg
+# Created by DBIx::Class::Schema::Loader v0.07038 @ 2013-12-03 14:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WxUWgujQjflxi/mFW+6dbA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
