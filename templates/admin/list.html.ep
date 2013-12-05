@@ -1,0 +1,8 @@
+% layout 'default';
+% title 'Administration: $table';
+% content_for banner => "Administration: $table";
+
+<p>Users</p>
+
+<%= include 'front/macros/crud', table => $table %>
+

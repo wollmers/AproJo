@@ -1,9 +1,0 @@
-% layout 'default';
-% title "Administer User: $id";
-
-% my $user = schema->resultset('User')->single({user_id => $id});
-% my $is_admin  = $user ? ($user->name eq 'admin' ) ? "checked" : "" : "";
-
-% my $table = 'User';
-
-<%= include 'front/macros/edit', table => $table %>

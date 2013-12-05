@@ -1,3 +1,4 @@
+% $table = ucfirst($table);
 % my $columns = [schema->source($table)->columns];
 % my $order = lc($table).'_id';
 % my $object = lc($table);
@@ -16,7 +17,7 @@
         %= tag td => $record->$col
       % }
       %= tag td => begin
-        %= tag a => href => "/admin/$object/$id" =>  l 'edit' 
+        %= tag a => href => "/admin/edit/$object/$id" =>  l 'edit' 
       %= end
     %= end
   % }

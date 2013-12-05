@@ -1,3 +1,4 @@
+% $table = ucfirst($table);
 % my $columns = [schema->source($table)->columns];
 % my $order = lc($table).'_id';
 % my $object = lc($table);
@@ -5,7 +6,7 @@
 % my $columns_info = schema->source($table)->columns_info($columns);
 
   
-<form class="form-horizontal" action="/store/<%= $object %>" method="post">
+<form class="form-horizontal" action="/admin/save/<%= $table %>" method="post">
     % for my $column (@$columns) {
   <fieldset>
     <div class="control-group">

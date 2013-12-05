@@ -81,13 +81,10 @@ sub startup {
     return 1;
   });
 
-  $if_admin->any( '/admin/users' )->to('admin#users');
-  $if_admin->any( '/admin/user/:id' )->to('admin#user');
-  $if_admin->post( '/store/user' )->to('admin#store_user');
+  $if_admin->get( '/admin/edit/:table/:id' )->to('admin#edit');
+  $if_admin->get( '/admin/list/:table' )->to('admin#list');
+  $if_admin->post( '/admin/save/:table' )->to('admin#save');
 
-  $if_admin->any( '/admin/addresses' )->to('admin#addresses');
-  $if_admin->any( '/admin/address/:id' )->to('admin#address');
-  $if_admin->post( '/store/address' )->to('admin#store_address');
 }
 
 1;
