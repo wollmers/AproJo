@@ -15,10 +15,8 @@ sub save {
   $data->{$_} = $self->req->param($_) ? $self->req->param($_) : 0 for ( @$params );
 
   my $rs = $self->schema->resultset($table);
-
-  $rs->update_or_create(
-    $data
-  );
+  $rs->update_or_create($data);
+  
   $self->redirect_to('/admin/list/'. $table);
 }
 

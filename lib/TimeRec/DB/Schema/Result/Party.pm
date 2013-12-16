@@ -90,4 +90,25 @@ __PACKAGE__->set_primary_key("party_id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->has_one(
+    'address', 
+    'TimeRec::DB::Schema::Result::Address', 
+    { 'foreign.address_id' => 'self.address_id' },
+    {cascade_delete => 0}
+);
+
+__PACKAGE__->might_have(
+    'billingaddress', 
+    'TimeRec::DB::Schema::Result::Address', 
+    { 'foreign.address_id' => 'self.billingaddress_id' },
+    {cascade_delete => 0}
+);
+
+__PACKAGE__->might_have(
+    'deliveryaddress', 
+    'TimeRec::DB::Schema::Result::Address', 
+    { 'foreign.address_id' => 'self.deliveryaddress_id' },
+    {cascade_delete => 0}
+);
+
 1;

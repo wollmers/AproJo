@@ -49,6 +49,16 @@ sub startup {
     return 0;
   });
   
+  $app->helper( 'source_id' => sub {
+    my ($self, $source) = @_;
+    return undef unless $source;
+    my @columns = $self->schema->source($source)->columns;
+    my $table_name = $self->schema->class($source)->table;
+    my $source_id = $table_name . '_id';
+    return $source_id if (grep { /$source_id/ } @columns );
+    return $columns[0] if (scalar @columns);
+  });  
+  
   $app->helper( 'get_user' => sub {
     my ($self, $name) = @_;
     unless ($name) {

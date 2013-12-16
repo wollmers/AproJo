@@ -145,5 +145,8 @@ __PACKAGE__->set_primary_key("order_id");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:q+gqHsBqZsow6OrT6BRgZg
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+## You can replace this text with custom content, and it will be preserved on regeneration
+
+__PACKAGE__->has_many('orderitems', 'TimeRec::DB::Schema::Result::Orderitem', 'order_id');
+
 1;

@@ -23,6 +23,10 @@ our %Lexicon = (
 
 'user_id' => 'Benutzer-ID',
 'alias' => 'Alias',
+'trash' => 'Gelöscht',
+'active' => 'Aktiv',
+'mail' => 'Email',
+'global_role_id' => 'Rolle',
 'action' => 'Aktion',
 'edit' => 'Ändern',
 

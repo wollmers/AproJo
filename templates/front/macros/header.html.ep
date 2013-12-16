@@ -1,12 +1,13 @@
 % my $user = session 'username';
 
 <!-- HEADER -->
-    <div class="container">
-        <!-- TOPNAV -->
-        <div class="row">
-            <div id="topnav" class="span12">   
-                <div class="controls align_right">                    
-    <span><a id="HyperLinkStart" href="/"><%= l 'start' %></a>
+<div class="container">
+
+    <!-- TOPNAV -->
+    <div class="row">
+        <div id="topnav" class="span12">   
+            <div class="controls align_right">                    
+<span><a id="HyperLinkStart" href="/"><%= l 'start' %></a>
                          | 
 % if ($user) {                                          
         <a href="/logout" title="<%= l 'logout from system' %>"><%= l 'logout' %></a> (<%== $user %>)
@@ -14,21 +15,19 @@
         <a href="/front/login" title="<%= l 'log into system' %>"><%= l 'login' %></a>
 % }              
                         Skin: <a id="skin" title="<%= l 'change skin' %>" href=""><strong><%= $skin %></strong></a>
-     </span>
-                </div>
+</span>
             </div>
-        </div><!-- END TOPNAV -->
+        </div>
+    </div><!-- END TOPNAV -->
         
-        <!-- LOGO ROW -->    
-        <div class="row">
-            <div class="span4">
-                <a href="/"><img src="/skins/<%= $skin %>/img/aprojo-logo-98px.png" alt="Logo" ></a>
-            </div>
-            <div class="span2">
-                <span class="info"><b>AproJo - DEV</b></span>
-            </div> 
-        </div><!-- END LOGO ROW -->
+    <!-- LOGO ROW -->    
+    <div class="row">
+        <div class="span4">
+            <a href="/"><img src="/skins/<%= $skin %>/img/aprojo-logo-98px.png" alt="Logo" ></a>
+        </div>
+        <div class="span2">
+            <span class="info"><b>AproJo - DEV</b></span>
+        </div> 
+    </div><!-- END LOGO ROW -->
  
-    </div>       
-
-<!-- END HEADER -->
+</div><!-- END HEADER -->

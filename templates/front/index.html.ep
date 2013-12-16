@@ -11,21 +11,29 @@
 
 <p><a href="/front/serverinfo">Serverinfo</a></p>
 
-<p><a href="/admin/edit/user/0">New user</a></p>
+<p><a href="/admin/edit/User/0">New user</a></p>
 
-<p><a href="/admin/list/user">Admin users</a></p>
+<p><a href="/admin/list/User">Admin users</a></p>
 
-<p><a href="/admin/edit/address/0">New address</a></p>
+<p><a href="/admin/edit/Address/0">New address</a></p>
 
-<p><a href="/admin/list/address">Admin addresses</a></p>
+<p><a href="/admin/list/Address">Admin addresses</a></p>
 
-<p><a href="/admin/edit/article/0">New article</a></p>
+<p><a href="/admin/edit/Party/0">New party</a></p>
 
-<p><a href="/admin/list/article">Admin article</a></p>
+<p><a href="/admin/list/Party">Admin parties</a></p>
 
-<p><a href="/admin/edit/time_entry/0">New time_entry</a></p>
+<p><a href="/admin/edit/Article/0">New article</a></p>
 
-<p><a href="/admin/list/time_entry">Admin time_entry</a></p>
+<p><a href="/admin/list/Article">Admin article</a></p>
+
+<p><a href="/admin/edit/Group/0">New group</a></p>
+
+<p><a href="/admin/list/Group">Admin Group</a></p>
+
+<p><a href="/admin/edit/TimeEntry/0">New time_entry</a></p>
+
+<p><a href="/admin/list/TimeEntry">Admin time_entry</a></p>
 
 
 <p>Hi and Ho</p>

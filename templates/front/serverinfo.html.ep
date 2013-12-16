@@ -27,6 +27,23 @@
 <%= dumper \%INC %>
 </pre>
 
+<h2>Schema sources and classes</h2>
+
+% my @sources = schema->sources;
+%= tag table => class => "table table-striped table-bordered table-condensed" => begin
+  %= tag tr => begin
+    % for my $header (qw(source table)) {
+      %= tag th =>  l $header 
+    % } 
+  %= end
+  % for my $source (sort @sources) {
+    % my $table = schema->class($source)->table;
+      %= tag tr => begin
+        %= tag td =>  $source
+        %= tag td =>  $table 
+      %= end
+  % }
+%= end
 
 </div>
 </div>

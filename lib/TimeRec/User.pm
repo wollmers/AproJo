@@ -13,9 +13,17 @@ print STDERR 'login user: ',$name,"\n";
 
   my $schema = $self->schema;
 
- my $columns_info = $schema->source('User')->columns_info([$schema->source('User')->columns]);
+  my $columns_info = $schema->source('User')->columns_info([$schema->source('User')->columns]);
  
- print STDERR 'source user: ',Dumper($columns_info),"\n";
+  print STDERR 'source user: ',Dumper($columns_info),"\n";
+ 
+  my $user_rel = $schema->source('User')->_relationships;
+ 
+  print STDERR '$user_rel: ',Dumper($user_rel),"\n";
+  
+  my $group_name = $schema->resultset('User')->single({name => $name})->global_role()->name;
+  
+  print STDERR '$group_name: ',Dumper($group_name),"\n";
 
   my $user = $schema->resultset('User')->single({name => $name});
   if ($user and $user->password eq $pass) {

@@ -124,4 +124,23 @@ __PACKAGE__->add_unique_constraint("name", ["name"]);
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+__PACKAGE__->has_one(
+    'global_role', 
+    'TimeRec::DB::Schema::Result::Group', 
+    { 'foreign.group_id' => 'self.global_role_id' },
+    {cascade_delete => 0}
+);
+
+=comment
+
+__PACKAGE__->has_one(
+    'groups', 
+    'TimeRec::DB::Schema::Result::Group', 
+    { 'foreign.group_id' => 'self.global_role_id' },
+    {cascade_delete => 0}
+);
+
+=cut
+
 1;

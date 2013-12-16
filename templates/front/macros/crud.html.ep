@@ -1,7 +1,6 @@
-% $table = ucfirst($table);
 % my $columns = [schema->source($table)->columns];
-% my $order = lc($table).'_id';
-% my $object = lc($table);
+% my $order = source_id($table);
+% my $object = $table;
 % my $result = schema->resultset($table)->search(undef, {order_by => { -asc => $order }});
 %= tag table => class => "table table-striped table-bordered table-condensed" => begin
   %= tag tr => begin
@@ -14,7 +13,14 @@
     % my $id = $record->$order;
     %= tag tr => begin
       % for my $col (@$columns) {
-        %= tag td => $record->$col
+        % my $col_base = $col;
+        % $col_base =~ s/_id$//;
+        % if (schema->source($table)->_relationships->{$col_base} && $record->$col_base->name ) {
+          %= tag td => $record->$col_base->name
+        % }
+        % else {
+          %= tag td => $record->$col
+        % }
       % }
       %= tag td => begin
         %= tag a => href => "/admin/edit/$object/$id" =>  l 'edit' 

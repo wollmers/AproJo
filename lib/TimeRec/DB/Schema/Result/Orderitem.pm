@@ -147,5 +147,9 @@ __PACKAGE__->set_primary_key("orderitem_id");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:873Mweh5MssGOcpYFiiREg
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+## You can replace this text with custom content, and it will be preserved on regeneration
+
+__PACKAGE__->belongs_to('orders', 'TimeRec::DB::Schema::Result::Order', 'order_id');
+__PACKAGE__->has_one('articles', 'TimeRec::DB::Schema::Result::Article', 'article_id');
+
 1;

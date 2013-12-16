@@ -173,4 +173,7 @@ __PACKAGE__->set_primary_key("time_entry_id");
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+
+__PACKAGE__->has_one('orderitem', 'TimeRec::DB::Schema::Result::Orderitem', 'orderitem_id');
+
 1;
