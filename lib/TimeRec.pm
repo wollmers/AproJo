@@ -35,6 +35,8 @@ sub startup {
   
   $app->plugin('I18N');
   
+  $app->plugin('Mojolicious::Plugin::Form');
+  
   $app->secret( $app->config->{secret} );
 
   $app->helper( schema => sub { shift->app->db } );
@@ -94,6 +96,9 @@ sub startup {
   $if_admin->get( '/admin/edit/:table/:id' )->to('admin#edit');
   $if_admin->get( '/admin/list/:table' )->to('admin#list');
   $if_admin->post( '/admin/save/:table' )->to('admin#save');
+  
+  $if_admin->get( '/admin/change/:table/:id' )->to('admin#change');
+  $if_admin->get( '/admin/show/:table' )->to('admin#show');  
 
 }
 

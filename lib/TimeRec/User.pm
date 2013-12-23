@@ -16,10 +16,18 @@ print STDERR 'login user: ',$name,"\n";
   my $columns_info = $schema->source('User')->columns_info([$schema->source('User')->columns]);
  
   print STDERR 'source user: ',Dumper($columns_info),"\n";
+  
+  my $primary_columns = [$schema->source('User')->primary_columns];
+  
+  print STDERR '$primary_columns: ',Dumper($primary_columns),"\n";
  
-  my $user_rel = $schema->source('User')->_relationships;
+  my $user_rel = [$schema->source('User')->relationships];
  
   print STDERR '$user_rel: ',Dumper($user_rel),"\n";
+  
+  my $role_rel_info = $schema->source('User')->relationship_info('global_role');
+  
+  print STDERR '$role_rel_info: ',Dumper($role_rel_info),"\n";
   
   my $group_name = $schema->resultset('User')->single({name => $name})->global_role()->name;
   

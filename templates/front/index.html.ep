@@ -1,5 +1,7 @@
 % layout 'default';
 % title 'Testpage TimeRec';
+% my $form = form_handler('User')->name;
+% form_handler('User')->from_schema(schema);
 
 <div class="container">                                 
 <div class="row">
@@ -8,6 +10,8 @@
 <h2>Testpage for TimeRec</h2>
 
 <p>It works!</p>
+
+<p><%= $form %></p>
 
 <p><a href="/front/serverinfo">Serverinfo</a></p>
 

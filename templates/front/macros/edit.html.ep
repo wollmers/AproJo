@@ -35,6 +35,14 @@
       </select> 
 
       % }
+      % elsif ($columns_info->{$column}->{data_type} =~ m/tinyint/) {
+        % my $checked = $result->$column ? 'checked="checked"' : ''; 
+      <div class="controls"> 
+        <input class="type-check" id="<%= $column %>" name="<%= $column %>"
+          % my $placeholder = $result ? $result->$column : 0;
+               type="checkbox"   <%= $checked %>>
+      </div>
+      % }     
       % else {
       <div class="controls">
         <input class="input-xlarge" id="<%= $column %>" name="<%= $column %>"
