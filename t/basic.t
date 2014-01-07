@@ -18,6 +18,7 @@ TimeRec::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin', $db);
 ok( $db->resultset('User')->single({name => 'admin'}), 'DB user works' );
 
 
+
 my $t = Test::Mojo->new(TimeRec->new(db => $db));
 $t->ua->max_redirects(2);
 
@@ -26,53 +27,34 @@ subtest 'Anonymous User' => sub {
   # landing page
   $t->get_ok('/')
     ->status_is(200)
-    ->text_is( h1 => 'TimeRec' )
-    ->text_is( h2 => 'Welcome to TimeRec!' )
-    ->content_like( qr/very modern/ )
-    ->element_exists( 'form' );
+    ->text_is( h2 => 'Testpage for TimeRec' )
+    ->element_exists( 'a' );
 
   # attempt to get non-existant page
   $t->get_ok('/page/doesntexist')
     ->status_is(404);
 
-  # attempt to edit page
-  $t->get_ok('/edit/home')
-    ->status_is(200)
-    ->content_like( qr/Not Authorized/ );
-
-  # attempt to menu admin page
-  $t->get_ok('/admin/menu')
-    ->status_is(200)
-    ->content_like( qr/Not Authorized/ );
-
-  # attempt to user admin page
-  $t->get_ok('/admin/users')
-    ->status_is(200)
-    ->content_like( qr/Not Authorized/ );
-
 };
+
+
 
 subtest 'Do Login' => sub {
 
   # fail username
-  $t->post_form_ok( '/login' => {from => '/page/home', username => 'wronguser', password => 'pass' } )
-    ->status_is(200)
-    ->content_like( qr/Sorry try again/ )
-    ->element_exists( 'form' );
+  $t->post_ok( '/login' => {from => '/front/login', username => 'wronguser', password => 'pass' } )
+    ->status_is(200);
 
   # fail password
-  $t->post_form_ok( '/login' => {from => '/page/home', username => 'admin', password => 'wrongpass' } )
-    ->status_is(200)
-    ->content_like( qr/Sorry try again/ )
-    ->element_exists( 'form' );
+  $t->post_ok( '/login' => {from => '/front/login', username => 'admin', password => 'wrongpass' } )
+    ->status_is(200);
 
   # successfully login
-  $t->post_form_ok( '/login' => {from => '/page/home', username => 'admin', password => 'pass' } )
-    ->status_is(200)
-    ->content_like( qr/Welcome Back/ )
-    ->text_like( '#user-menu li' => qr/Hello admin/ );
+  $t->post_ok( '/login' => {from => '/front/home', username => 'admin', password => 'pass' } )
+    ->status_is(200);
 
 };
+
+=comment
 
 subtest 'Edit Page' => sub {
 

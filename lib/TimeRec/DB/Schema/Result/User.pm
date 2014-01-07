@@ -85,7 +85,7 @@ __PACKAGE__->add_columns(
   "active",
   { data_type => "tinyint", default_value => 1, is_nullable => 1 },
   "mail",
-  { data_type => "varchar", default_value => "", is_nullable => 0, size => 100 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 100 },
   "password",
   { data_type => "varchar", is_nullable => 1, size => 254 },
   "global_role_id",

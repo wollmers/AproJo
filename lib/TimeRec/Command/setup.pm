@@ -45,7 +45,7 @@ sub inject_sample_data {
     name => $user,
     alias => $alias,
     password => $pass,
-    globalRoleID => 1,
+    global_role_id => 1,
   });
 
   return $schema;

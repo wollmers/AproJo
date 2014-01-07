@@ -31,15 +31,9 @@ sub save {
   
   my @checkboxes = grep { $form->elements->{$_}->{type} eq 'checkbox' } @elements;
   
-  print STDERR '@checkboxes: ',Dumper(\@checkboxes),"\n";
-  
   for my $param (@checkboxes) {
     $data->{$param} = (exists $data->{$param} && $data->{$param} eq 'on') ? 1 : 0;   
   }
-  
-  print STDERR 'params: ',Dumper($params),"\n";
-  
-  print STDERR 'data: ',Dumper($data),"\n";
 
   my $rs = $self->schema->resultset($table);
   $rs->update_or_create($data);

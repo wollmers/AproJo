@@ -29,6 +29,8 @@ has config_file => sub {
 sub startup {
   my $app = shift;
   
+  
+  
   $app->plugin( Config => { 
     file => $app->config_file,
   });
@@ -36,6 +38,8 @@ sub startup {
   $app->plugin('I18N');
   
   $app->plugin('Mojolicious::Plugin::Form');
+  
+  push @{$app->commands->namespaces}, 'TimRec::Command';
   
   $app->secret( $app->config->{secret} );
 
