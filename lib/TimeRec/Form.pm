@@ -89,8 +89,6 @@ sub from_schema {
         $self->elements->{$column} = $element;
         push @{ $self->ordered_elements }, $column;
     }
-    #print STDERR '$elements: ',Dumper($self->elements),"\n";
-    #print STDERR 'ordered_elements: ',Dumper($self->ordered_elements),"\n";
     return $self;
 }
 
@@ -116,7 +114,6 @@ sub related {
     my $rel_info = $schema->source($source)->relationship_info($relation);
     
     my $rel_source = $schema->source($source)->related_source($relation)->{'source_name'};
-    #print STDERR '$rel_source: ',Dumper($rel_source),"\n";
     
     my @rel_fields = $self->id_and_name($schema, $rel_source);
 
