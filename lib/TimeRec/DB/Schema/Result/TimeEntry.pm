@@ -33,14 +33,14 @@ __PACKAGE__->table("time_entries");
 
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: '0000-00-00 00:00:00'
+  default_value: '1900-01-01 00:00:00'
   is_nullable: 0
 
 =head2 end
 
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  default_value: '0000-00-00 00:00:00'
+  default_value: '1900-01-01 00:00:00'
   is_nullable: 0
 
 =head2 duration
@@ -119,14 +119,14 @@ __PACKAGE__->add_columns(
   {
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    default_value => "0000-00-00 00:00:00",
+    default_value => "1900-01-01 00:00:00",
     is_nullable => 0,
   },
   "end",
   {
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    default_value => "0000-00-00 00:00:00",
+    default_value => "1900-01-01 00:00:00",
     is_nullable => 0,
   },
   "duration",

@@ -13,6 +13,8 @@ my @modules = qw(
   TimeRec::Page
   TimeRec::User
   
+  TimeRec::DB::Schema
+  
   TimeRec::Form::User
   
   Mojolicious::Plugin::Form

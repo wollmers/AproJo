@@ -1,4 +1,0 @@
-% layout 'default';
-% title "Administer $table: $id";
-
-<%= include 'front/macros/edit', table => $table %>

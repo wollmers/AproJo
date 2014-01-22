@@ -39,14 +39,22 @@ sub inject_sample_data {
   my $pass = shift or die "Must provide a password for $user";
   my $alias = shift || "Administrator";
 
-  $schema->deploy;
+  $schema->deploy({ add_drop_table => 1});
+
+  my $group = $schema->resultset('Group')->create({
+    'name' => 'admin',
+  });
 
   my $admin = $schema->resultset('User')->create({
     name => $user,
     alias => $alias,
     password => $pass,
-    global_role_id => 1,
+    group_id => $group->group_id
   });
+  
+  #my $group = $admin->add_to_groups({
+  #  'name' => 'admin',
+  #});
 
   return $schema;
 }

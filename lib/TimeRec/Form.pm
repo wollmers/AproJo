@@ -15,10 +15,6 @@ has 'id_field';
 
 has 'order_by';
 
-#has 'model';
-
-#has 'schema' => 'mein Schema';
-
 sub add_elements {
   my ($self, @elems) = @_;
 
@@ -62,9 +58,12 @@ sub from_schema {
     
     my $relationships = [$schema->source($source)->relationships];
     
+    print STDERR '$relationships: ',Dumper($relationships),"\n";
+    
     my $rel_elements;
     for my $relation (@$relationships) {
-        $rel_elements->{$relation} = $self->related($schema, $source,$relation);       
+        my $relationship = $self->related($schema, $source,$relation);
+        $rel_elements->{$relation} = $relationship if $relationship;       
     }
     $self->elements || $self->elements({});
     $self->ordered_elements || $self->ordered_elements([]);
@@ -112,6 +111,10 @@ sub related {
     #     },
     
     my $rel_info = $schema->source($source)->relationship_info($relation);
+    
+    print STDERR '$rel_info: ',Dumper($rel_info),"\n";
+    
+    return undef unless ($rel_info->{attrs}->{accessor} eq 'single');
     
     my $rel_source = $schema->source($source)->related_source($relation)->{'source_name'};
     

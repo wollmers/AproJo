@@ -3,10 +3,10 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Data::Dumper;
 
-sub edit { shift->render }
-sub list { shift->render }
+#sub edit { shift->render }
+#sub list { shift->render }
 
-sub change {}
+sub change { shift->render }
 sub show {
   my $self = shift;
   #my $table = $self->stash->{table};

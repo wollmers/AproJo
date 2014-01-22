@@ -20,13 +20,6 @@
 <%= dumper \@INC %>
 </pre>
 
-
-<h2>Perl %INC</h2>
-
-<pre>
-<%= dumper \%INC %>
-</pre>
-
 <h2>Schema sources and classes</h2>
 
 % my @sources = schema->sources;
@@ -44,6 +37,27 @@
       %= end
   % }
 %= end
+
+<h2>Perl %INC</h2>
+
+<pre>
+<%= dumper \%INC %>
+</pre>
+
+<p>Number of modules: <%= scalar keys %INC %></p>
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
 
 </div>
 </div>

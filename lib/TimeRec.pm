@@ -1,6 +1,8 @@
 package TimeRec;
 use Mojo::Base 'Mojolicious';
 
+use Data::Dumper;
+
 our $VERSION = 0.008;
 $VERSION = eval $VERSION;
 
@@ -29,8 +31,6 @@ has config_file => sub {
 sub startup {
   my $app = shift;
   
-  
-  
   $app->plugin( Config => { 
     file => $app->config_file,
   });
@@ -39,9 +39,12 @@ sub startup {
   
   $app->plugin('Mojolicious::Plugin::Form');
   
-  push @{$app->commands->namespaces}, 'TimRec::Command';
+  push @{$app->commands->namespaces}, 'TimeRec::Command';
   
-  $app->secret( $app->config->{secret} );
+  say STDERR 'namespaces: ',Dumper($app->commands->namespaces);
+  
+  #DEPRECATED: $app->secret( $app->config->{secret} );
+  $app->secrets( [$app->config->{secret} ] );
 
   $app->helper( schema => sub { shift->app->db } );
   
@@ -97,8 +100,8 @@ sub startup {
     return 1;
   });
 
-  $if_admin->get( '/admin/edit/:table/:id' )->to('admin#edit');
-  $if_admin->get( '/admin/list/:table' )->to('admin#list');
+  #$if_admin->get( '/admin/edit/:table/:id' )->to('admin#edit');
+  #$if_admin->get( '/admin/list/:table' )->to('admin#list');
   $if_admin->post( '/admin/save/:table' )->to('admin#save');
   
   $if_admin->get( '/admin/change/:table/:id' )->to('admin#change');
