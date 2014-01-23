@@ -5,7 +5,7 @@ use 5.8.0;
 use Module::Build;
 
 my $builder = Module::Build->new(
-  module_name => 'TimeRec',
+  module_name => 'AproJo',
   dist_author => 'Helmut Wollmersdorfer',
   license => 'perl',
   
@@ -28,7 +28,7 @@ my $builder = Module::Build->new(
     'Module::Build' => 0.38,
   },
 
-  share_dir => 'lib/TimeRec/files',
+  share_dir => 'lib/AproJo/files',
 
   meta_merge => {
     resources  => {

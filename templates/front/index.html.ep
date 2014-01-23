@@ -1,5 +1,5 @@
 % layout 'default';
-% title 'Testpage TimeRec';
+% title 'Testpage AproJo';
 % my $form = form_handler('User')->name;
 % form_handler('User')->from_schema(schema);
 
@@ -7,7 +7,7 @@
 <div class="row">
 <div class="span12"> 
 
-<h2>Testpage for TimeRec</h2>
+<h2>Testpage for AproJo</h2>
 
 <p>It works!</p>
 

@@ -25,11 +25,11 @@ EOF
 
 
 # Application
-$ENV{MOJO_APP} = 'TimeRec';
+$ENV{MOJO_APP} = 'AproJo';
 $ENV{TIMEREC_CONFIG} = "$ENV{MOJO_HOME}/timerec.conf";
 
 require Mojolicious::Commands;
-Mojolicious::Commands->start_app('TimeRec');
+Mojolicious::Commands->start_app('AproJo');
 
 __END__
 

@@ -31,7 +31,7 @@ sub register {
         Carp::croak qq/Can't find form '$class_name'/ if $e;
     
         Carp::croak qq/Wrong form '$class_name' isa/
-          unless $class_name->isa('TimeRec::Form');
+          unless $class_name->isa('AproJo::Form');
     
         return $class_name->new(%$conf, @_);
     }

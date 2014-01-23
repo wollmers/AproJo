@@ -5,17 +5,17 @@ use Test::More;
 use lib qw( ../lib );
 
 my @modules = qw(
-  TimeRec
-  TimeRec::Admin
-  TimeRec::Edit
-  TimeRec::Form
-  TimeRec::Front
-  TimeRec::Page
-  TimeRec::User
+  AproJo
+  AproJo::Admin
+  AproJo::Edit
+  AproJo::Form
+  AproJo::Front
+  AproJo::Page
+  AproJo::User
   
-  TimeRec::DB::Schema
+  AproJo::DB::Schema
   
-  TimeRec::Form::User
+  AproJo::Form::User
   
   Mojolicious::Plugin::Form
   

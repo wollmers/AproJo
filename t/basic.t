@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 
-use TimeRec;
-use TimeRec::DB::Schema;
-use TimeRec::Command::setup;
+use AproJo;
+use AproJo::DB::Schema;
+use AproJo::Command::setup;
 
 use Mojo::JSON;
 my $json = Mojo::JSON->new;
@@ -13,13 +13,13 @@ END{ done_testing(); }
 
 use Test::Mojo;
 
-my $db = TimeRec::DB::Schema->connect('dbi:SQLite:dbname=:memory:');
-TimeRec::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin', $db);
+my $db = AproJo::DB::Schema->connect('dbi:SQLite:dbname=:memory:');
+AproJo::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin', $db);
 ok( $db->resultset('User')->single({name => 'admin'}), 'DB user works' );
 
 
 
-my $t = Test::Mojo->new(TimeRec->new(db => $db));
+my $t = Test::Mojo->new(AproJo->new(db => $db));
 $t->ua->max_redirects(2);
 
 subtest 'Anonymous User' => sub {
@@ -27,7 +27,7 @@ subtest 'Anonymous User' => sub {
   # landing page
   $t->get_ok('/')
     ->status_is(200)
-    ->text_is( h2 => 'Testpage for TimeRec' )
+    ->text_is( h2 => 'Testpage for AproJo' )
     ->element_exists( 'a' );
 
   # attempt to get non-existant page
@@ -61,7 +61,7 @@ subtest 'Edit Page' => sub {
   # page editor
   $t->get_ok('/edit/home')
     ->status_is(200)
-    ->text_like( '#wmd-input' => qr/Welcome to TimeRec!/ )
+    ->text_like( '#wmd-input' => qr/Welcome to AproJo!/ )
     ->element_exists( '#wmd-preview' );
 
   # save page
@@ -104,7 +104,7 @@ subtest 'Edit Page' => sub {
 };
 
 subtest 'Edit Main Navigation Menu' => sub {
-  my $title = 'About TimeRec';
+  my $title = 'About AproJo';
 
   # check about page is in nav 
   $t->get_ok('/admin/menu')

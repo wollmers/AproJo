@@ -1,0 +1,61 @@
+use utf8;
+package AproJo::DB::Schema::Result::Party;
+
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+AproJo::DB::Schema::Result::Party
+
+=cut
+
+use strict;
+use warnings;
+
+use base 'DBIx::Class::Core';
+
+__PACKAGE__->table("parties");
+
+
+__PACKAGE__->add_columns(
+  "party_id",
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
+  "name",
+  { data_type => "varchar", is_nullable => 0, size => 50 },
+  "address_id",
+  { data_type => "integer", is_nullable => 0 },
+  "billingaddress_id",
+  { data_type => "integer", is_nullable => 0 },
+  "deliveryaddress_id",
+  { data_type => "integer", is_nullable => 0 },
+  "comment",
+  { data_type => "text", is_nullable => 0 },
+);
+
+
+
+__PACKAGE__->set_primary_key("party_id");
+
+__PACKAGE__->has_one(
+    'address', 
+    'AproJo::DB::Schema::Result::Address', 
+    { 'foreign.address_id' => 'self.address_id' },
+    {cascade_delete => 0}
+);
+
+__PACKAGE__->might_have(
+    'billingaddress', 
+    'AproJo::DB::Schema::Result::Address', 
+    { 'foreign.address_id' => 'self.billingaddress_id' },
+    {cascade_delete => 0}
+);
+
+__PACKAGE__->might_have(
+    'deliveryaddress', 
+    'AproJo::DB::Schema::Result::Address', 
+    { 'foreign.address_id' => 'self.deliveryaddress_id' },
+    {cascade_delete => 0}
+);
+
+1;
