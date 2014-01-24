@@ -9,7 +9,7 @@ $VERSION = eval $VERSION;
 has db => sub {
   my $self = shift;
   my $schema_class = $self->config->{db_schema} or die "Unknown DB Schema Class";
-  eval "require $schema_class" or die "Could not load Schema Class ($schema_class)";
+  eval "require $schema_class" or die "Could not load Schema Class ($schema_class), $@";
 
   my $db_connect = $self->config->{db_connect} or die "No DBI connection string provided";
   my @db_connect = ref $db_connect ? @$db_connect : ( $db_connect );
@@ -74,13 +74,16 @@ sub startup {
       $name = $self->session->{username};
     }
     return undef unless $name;
+    print STDERR 'get_user: ',$name,"\n";
     return $self->schema->resultset('User')->single({name => $name});
   });
   $app->helper( 'is_admin' => sub {
     my $self = shift;
     my $user = $self->get_user(@_);
     return undef unless $user;
-    return $user->name eq 'admin';
+    my $group = $user->group->name;
+    print STDERR 'is_admin: ',$group,"\n";
+    return $user->group->name eq 'admin';
   });
 
   my $routes = $app->routes;

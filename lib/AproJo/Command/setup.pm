@@ -40,6 +40,26 @@ sub inject_sample_data {
   my $alias = shift || "Administrator";
 
   $schema->deploy({ add_drop_table => 1});
+  
+  my $units = [
+   {'description_short' => 'pcs', 'description_long' => 'pieces'},
+   {'description_short' => 'h', 'description_long' => 'hours'},
+  ];
+  
+  for my $unit (@$units) {
+    $schema->resultset('Unit')->create($unit);  
+  }
+  
+  my $statuses [
+    {'status' => 'ordered'},
+    {'status' => 'work'},
+    {'status' => 'proven'},
+    {'status' => 'invoiced'},
+  ];
+  
+  for my $status (@$statuses) {
+    $schema->resultset('Status')->create($status);  
+  }
 
   my $group = $schema->resultset('Group')->create({
     'name' => 'admin',

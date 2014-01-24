@@ -15,29 +15,11 @@
 
 <p><a href="/front/serverinfo">Serverinfo</a></p>
 
-<p><a href="/admin/change/User/0">New user</a></p>
+% my @sources = schema->sources;
+% for my $source (sort @sources) {
+<p><a href="/admin/show/<%= $source %>">Admin <%= $source %></a></p>
+% }
 
-<p><a href="/admin/show/User">Admin users</a></p>
-
-<p><a href="/admin/change/Address/0">New address</a></p>
-
-<p><a href="/admin/show/Address">Admin addresses</a></p>
-
-<p><a href="/admin/change/Party/0">New party</a></p>
-
-<p><a href="/admin/show/Party">Admin parties</a></p>
-
-<p><a href="/admin/change/Article/0">New article</a></p>
-
-<p><a href="/admin/show/Article">Admin article</a></p>
-
-<p><a href="/admin/change/Group/0">New group</a></p>
-
-<p><a href="/admin/show/Group">Admin Group</a></p>
-
-<p><a href="/admin/change/TimeEntry/0">New time_entry</a></p>
-
-<p><a href="/admin/show/TimeEntry">Admin time_entry</a></p>
 
 
 <p>Hi and Ho</p>
