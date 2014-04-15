@@ -11,9 +11,9 @@ __PACKAGE__->add_columns(
   'unit_id',
   { data_type => 'integer', is_auto_increment => 1, is_nullable => 0 },
   'description_short',
-  { data_type => 'varchar', is_nullable => 0, size => 50 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 50 },
   'description_long',
-  { data_type => 'varchar', is_nullable => 1, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
 );
 
 __PACKAGE__->set_primary_key('unit_id');

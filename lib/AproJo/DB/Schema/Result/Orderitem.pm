@@ -40,11 +40,11 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   'partial_shipment_allowed',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 255 },
   'transport',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 255 },
   'remark',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 255 },
 );
 
 

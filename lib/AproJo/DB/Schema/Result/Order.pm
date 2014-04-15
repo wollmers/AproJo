@@ -18,7 +18,7 @@ __PACKAGE__->add_columns(
   'type',
   { data_type => 'varchar', is_nullable => 0, size => 30 },
   'customer_order_id',
-  { data_type => 'varchar', is_nullable => 0, size => 50 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 50 },
   'order_date',
   {
     data_type => 'date',
@@ -34,17 +34,17 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   'currency',
-  { data_type => 'varchar', is_nullable => 0, size => 10 },
+  { data_type => 'varchar', default_value => 'EUR', is_nullable => 0, size => 10 },
   'payment',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
   'terms_and_conditions',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
   'partial_shipment_allowed',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
   'transport',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
   'remark',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
 );
 
 

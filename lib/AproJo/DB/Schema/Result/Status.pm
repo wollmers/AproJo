@@ -12,7 +12,7 @@ __PACKAGE__->add_columns(
   'status_id',
   { data_type => 'tinyint', is_auto_increment => 1, is_nullable => 0 },
   'status',
-  { data_type => 'varchar', is_nullable => 0, size => 200 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 200 },
 );
 
 

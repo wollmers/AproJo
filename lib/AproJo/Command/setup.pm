@@ -42,8 +42,8 @@ sub inject_sample_data {
   $schema->deploy({ add_drop_table => 1});
   
   my $units = [
-   {'description_short' => 'pcs', 'description_long' => 'pieces'},
-   {'description_short' => 'h', 'description_long' => 'hours'},
+   {'description_short' => 'pc', 'description_long' => 'pieces'},
+   {'description_short' => 'h',  'description_long' => 'hours'},
   ];
   
   for my $unit (@$units) {
@@ -61,7 +61,7 @@ sub inject_sample_data {
     $schema->resultset('Status')->create($status);  
   }
 
-  my $group = $schema->resultset('Group')->create({
+  my $role = $schema->resultset('Role')->create({
     'name' => 'admin',
   });
 
@@ -69,7 +69,11 @@ sub inject_sample_data {
     name => $user,
     alias => $alias,
     password => $pass,
-    group_id => $group->group_id
+  });
+  
+  my $admin_role = $schema->resultset('UserRole')->create({
+    user_id => $admin->user_id,
+    role_id => $role->role_id,
   });
   
   #my $group = $admin->add_to_groups({

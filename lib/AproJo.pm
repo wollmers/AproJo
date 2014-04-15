@@ -81,9 +81,9 @@ sub startup {
     my $self = shift;
     my $user = $self->get_user(@_);
     return undef unless $user;
-    my $group = $user->group->name;
-    print STDERR 'is_admin: ',$group,"\n";
-    return $user->group->name eq 'admin';
+    my $role = $user->role->name;
+    print STDERR 'is_admin: ',$role,"\n";
+    return $user->role->name eq 'admin';
   });
 
   my $routes = $app->routes;

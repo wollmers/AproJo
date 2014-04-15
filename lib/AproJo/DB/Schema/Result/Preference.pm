@@ -15,9 +15,9 @@ __PACKAGE__->add_columns(
   'user_id',
   { data_type => 'integer', is_nullable => 0 },
   'option',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 255 },
   'value',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 255 },
 );
 
 

@@ -18,7 +18,13 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('group_id');
 
-__PACKAGE__->has_many('users' => 'AproJo::DB::Schema::Result::User', 'group_id');
+__PACKAGE__->has_many(
+  'user_groups',
+  'AproJo::DB::Schema::Result::UserGroup',
+  { 'foreign.group_id' => 'self.group_id' },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
+__PACKAGE__->many_to_many('user_ids', 'user_groups', 'user_id');
 
 1;

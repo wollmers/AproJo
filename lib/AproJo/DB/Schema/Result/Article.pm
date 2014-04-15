@@ -12,9 +12,9 @@ __PACKAGE__->add_columns(
   'article_id',
   { data_type => 'integer', is_auto_increment => 1, is_nullable => 0 },
   'description_short',
-  { data_type => 'varchar', is_nullable => 0, size => 50 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 50 },
   'description_long',
-  { data_type => 'varchar', is_nullable => 1, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 1, size => 255 },
   'unit_id',
   { data_type => 'integer', default_value => 1, is_nullable => 0 },
   'price',
@@ -25,7 +25,7 @@ __PACKAGE__->add_columns(
     size => [10, 2],
   },
   'timeable',
-  { data_type => 'integer', is_nullable => 1 },
+  { data_type => 'integer', default_value => 0, is_nullable => 1 },
 );
 
 __PACKAGE__->set_primary_key('article_id');

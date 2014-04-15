@@ -14,7 +14,7 @@ __PACKAGE__->add_columns(
   'option',
   { data_type => 'varchar', is_nullable => 0, size => 255 },
   'value',
-  { data_type => 'varchar', is_nullable => 0, size => 255 },
+  { data_type => 'varchar', default_value => '', is_nullable => 0, size => 255 },
 );
 
 

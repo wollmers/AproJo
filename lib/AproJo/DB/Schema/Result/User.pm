@@ -22,15 +22,28 @@ __PACKAGE__->add_columns(
   { data_type => 'varchar', default_value => '', is_nullable => 1, size => 100 },
   'password',
   { data_type => 'varchar', is_nullable => 1, size => 254 },
-  'group_id',
-  { data_type => 'integer', is_nullable => 0 },
 );
 
 __PACKAGE__->set_primary_key('user_id');
 
 __PACKAGE__->add_unique_constraint('name', ['name']);
 
-__PACKAGE__->belongs_to('group' => 'AproJo::DB::Schema::Result::Group', 'group_id');
+__PACKAGE__->has_many(
+  'user_roles',
+  'AproJo::DB::Schema::Result::UserRole',
+  { 'foreign.user_id' => 'self.user_id' },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 
+__PACKAGE__->many_to_many('roles', 'user_roles', 'role');
+
+__PACKAGE__->has_many(
+  'user_groups',
+  'AproJo::DB::Schema::Result::UserGroup',
+  { 'foreign.user_id' => 'self.user_id' },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+__PACKAGE__->many_to_many('groups', 'user_groups', 'group');
 
 1;
