@@ -58,7 +58,7 @@ sub from_schema {
     
     my $relationships = [$schema->source($source)->relationships];
     
-    print STDERR '$relationships: ',Dumper($relationships),"\n";
+    #print STDERR '$relationships: ',Dumper($relationships),"\n";
     
     my $rel_elements;
     for my $relation (@$relationships) {
@@ -112,7 +112,7 @@ sub related {
     
     my $rel_info = $schema->source($source)->relationship_info($relation);
     
-    print STDERR '$rel_info: ',Dumper($rel_info),"\n";
+    #print STDERR '$rel_info: ',Dumper($rel_info),"\n";
     
     return undef unless ($rel_info->{attrs}->{accessor} eq 'single');
     
