@@ -50,7 +50,7 @@ sub inject_sample_data {
     $schema->resultset('Unit')->create($unit);  
   }
   
-  my $statuses [
+  my $statuses = [
     {'status' => 'ordered'},
     {'status' => 'work'},
     {'status' => 'proven'},

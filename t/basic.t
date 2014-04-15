@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+use lib qw( ../lib );
+
 use AproJo;
 use AproJo::DB::Schema;
 use AproJo::Command::setup;
