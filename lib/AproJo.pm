@@ -25,7 +25,7 @@ has config_file => sub {
   return $ENV{TIMEREC_CONFIG} if $ENV{TIMEREC_CONFIG}; 
   return "$ENV{MOJO_HOME}/timerec.conf" if $ENV{MOJO_HOME};
   return "$ENV{DOCUMENT_ROOT}/timerec.conf" if $ENV{DOCUMENT_ROOT};
-  return "/var/www/timerec/timerec.conf";
+  return "/var/www/timerec/timerec.conf" if (-f "/var/www/timerec/timerec.conf");
 };
 
 sub startup {
