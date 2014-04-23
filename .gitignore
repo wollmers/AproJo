@@ -20,3 +20,11 @@ pm_to_blib
 *~
 ._*
 .DS_Store
+
+/AproJo-*
+/.build
+/_build*
+/Build
+MYMETA.*
+!META.json
+/.prove
