@@ -1,4 +1,4 @@
-requires 'perl', '5.008005';
+requires 'perl', '5.010001';
 
 requires 'Mojolicious', '3.0';
 requires 'Mojolicious::Plugin::I18N', '0';
