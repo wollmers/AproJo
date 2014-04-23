@@ -2,5 +2,8 @@ Revision history for AproJo.
 
 {{$NEXT}}
 
-0.001  2014-04-23 14:56:04 CEST
-	- Initial release
+0.002  2014-04-23 15:21:26 CEST
+       - need Perl v5.10.1 as minimum
+
+0.001  2014-04-23 
+       - initial version

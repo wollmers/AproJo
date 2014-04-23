@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious';
 
 use Data::Dumper;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 has db => sub {
   my $self = shift;
