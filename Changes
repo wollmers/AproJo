@@ -1,6 +1,7 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+       - debug warnings (fails on CPANTesters), cleanup
 
 0.002  2014-04-23 15:21:26 CEST
        - need Perl v5.10.1 as minimum
