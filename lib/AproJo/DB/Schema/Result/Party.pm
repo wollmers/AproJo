@@ -17,9 +17,9 @@ __PACKAGE__->add_columns(
   "address_id",
   { data_type => "integer", is_nullable => 0 },
   "billingaddress_id",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_nullable => 0 },
   "deliveryaddress_id",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_nullable => 0 },
   "comment",
   { data_type => "text", default_value => '', is_nullable => 1 },
 );
