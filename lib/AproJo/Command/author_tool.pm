@@ -16,11 +16,13 @@ sub generate_install_scripts {
   my $self = shift;
 
   my $schema = $self->app->schema;
-  my $dh = DBIx::Class::DeploymentHandler->new({
-    schema => $schema,
-    databases => [],
-    script_directory => 'lib/AproJo/files/sql',
-  });
+  my $dh     = DBIx::Class::DeploymentHandler->new(
+    {
+      schema           => $schema,
+      databases        => [],
+      script_directory => 'lib/AproJo/files/sql',
+    }
+  );
   my $version = $schema->schema_version;
 
   say "generating deployment script";

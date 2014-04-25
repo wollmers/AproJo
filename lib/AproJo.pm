@@ -5,85 +5,107 @@ use Data::Dumper;
 
 our $VERSION = '0.003';
 
+use File::Basename 'dirname';
+use File::Spec::Functions qw'rel2abs catdir';
+use File::ShareDir 'dist_dir';
+use Cwd;
+
 has db => sub {
-  my $self = shift;
-  my $schema_class = $self->config->{db_schema} or die "Unknown DB Schema Class";
-  eval "require $schema_class" or die "Could not load Schema Class ($schema_class), $@";
+  my $self         = shift;
+  my $schema_class = $self->config->{db_schema}
+    or die "Unknown DB Schema Class";
+  eval "require $schema_class"
+    or die "Could not load Schema Class ($schema_class), $@";
 
-  my $db_connect = $self->config->{db_connect} or die "No DBI connection string provided";
-  my @db_connect = ref $db_connect ? @$db_connect : ( $db_connect );
+  my $db_connect = $self->config->{db_connect}
+    or die "No DBI connection string provided";
+  my @db_connect = ref $db_connect ? @$db_connect : ($db_connect);
 
-  my $schema = $schema_class->connect( @db_connect ) 
+  my $schema = $schema_class->connect(@db_connect)
     or die "Could not connect to $schema_class using $db_connect[0]";
 
   return $schema;
 };
 
+has home_path => sub {
+  my $path = $ENV{MOJO_HOME} || getcwd;
+  return File::Spec->rel2abs($path);
+};
+
 has config_file => sub {
   my $self = shift;
-  return $ENV{TIMEREC_CONFIG} if $ENV{TIMEREC_CONFIG}; 
-  return "$ENV{MOJO_HOME}/timerec.conf" if $ENV{MOJO_HOME};
-  return "$ENV{DOCUMENT_ROOT}/timerec.conf" if $ENV{DOCUMENT_ROOT};
-  return "/var/www/timerec/timerec.conf" if (-f "/var/www/timerec/timerec.conf");
+  return $ENV{APROJO_CONFIG} if $ENV{APROJO_CONFIG};
+
+  return rel2abs('aprojo.conf', $self->home_path);
+
+#return "$ENV{MOJO_HOME}/timerec.conf" if $ENV{MOJO_HOME};
+#return "$ENV{DOCUMENT_ROOT}/timerec.conf" if $ENV{DOCUMENT_ROOT};
+#return "/var/www/timerec/timerec.conf" if (-f "/var/www/timerec/timerec.conf");
 };
 
 sub startup {
   my $app = shift;
-  
-  $app->plugin( Config => { 
-    file => $app->config_file,
-  });
-  
+
+  $app->plugin(Config => {file => $app->config_file,});
+
   $app->plugin('I18N');
-  
+
   $app->plugin('Mojolicious::Plugin::Form');
-  
+
   push @{$app->commands->namespaces}, 'AproJo::Command';
-  
-  say STDERR 'namespaces: ',Dumper($app->commands->namespaces);
-  
+
+  say STDERR 'namespaces: ', Dumper($app->commands->namespaces);
+
   #DEPRECATED: $app->secret( $app->config->{secret} );
-  $app->secrets( [$app->config->{secret} ] );
+  $app->secrets([$app->config->{secret}]);
 
-  $app->helper( schema => sub { shift->app->db } );
-  
-  $app->helper( 'home_page' => sub{ '/' } );
+  $app->helper(schema => sub { shift->app->db });
 
-  $app->helper( 'auth_fail' => sub {
-    my $self = shift;
-    my $message = shift || "Not Authorized";
-    $self->flash( onload_message => $message );
-    $self->redirect_to( $self->home_page );
-    return 0;
-  });
-  
-  $app->helper( 'source_id' => sub {
-    my ($self, $source) = @_;
-    return undef unless $source;
-    my @columns = $self->schema->source($source)->columns;
-    my $table_name = $self->schema->class($source)->table;
-    my $source_id = $table_name . '_id';
-    return $source_id if (grep { /$source_id/ } @columns );
-    return $columns[0] if (scalar @columns);
-  });  
-  
-  $app->helper( 'get_user' => sub {
-    my ($self, $name) = @_;
-    unless ($name) {
-      $name = $self->session->{username};
+  $app->helper('home_page' => sub {'/'});
+
+  $app->helper(
+    'auth_fail' => sub {
+      my $self = shift;
+      my $message = shift || "Not Authorized";
+      $self->flash(onload_message => $message);
+      $self->redirect_to($self->home_page);
+      return 0;
     }
-    return undef unless $name;
-    print STDERR 'get_user: ',$name,"\n";
-    return $self->schema->resultset('User')->single({name => $name});
-  });
-  $app->helper( 'is_admin' => sub {
-    my $self = shift;
-    my $user = $self->get_user(@_);
-    return undef unless $user;
-    my $role = $user->role->name;
-    print STDERR 'is_admin: ',$role,"\n";
-    return $user->role->name eq 'admin';
-  });
+  );
+
+  $app->helper(
+    'source_id' => sub {
+      my ($self, $source) = @_;
+      return undef unless $source;
+      my @columns    = $self->schema->source($source)->columns;
+      my $table_name = $self->schema->class($source)->table;
+      my $source_id  = $table_name . '_id';
+      return $source_id if (grep {/$source_id/} @columns);
+      return $columns[0] if (scalar @columns);
+    }
+  );
+
+  $app->helper(
+    'get_user' => sub {
+      my ($self, $name) = @_;
+      unless ($name) {
+        $name = $self->session->{username};
+      }
+      return undef unless $name;
+      print STDERR 'get_user: ', $name, "\n";
+      return $self->schema->resultset('User')->single({name => $name});
+    }
+  );
+  $app->helper(
+    'is_admin' => sub {
+      my $self = shift;
+      my $user = $self->get_user(@_);
+      return undef unless $user;
+      my $role = $user->role->name;
+      print STDERR 'is_admin: ', $role, "\n";
+      return $user->role->name eq 'admin';
+    }
+  );
 
   my $routes = $app->routes;
 
@@ -91,23 +113,25 @@ sub startup {
   $routes->get('/')->to('front#index');
   $routes->get('/front/*name')->to('front#page');
   $routes->post('/save')->to('front#save');
-  $routes->post( '/login' )->to('user#login');
-  $routes->any( '/logout' )->to('user#logout');
-  
-  my $if_admin = $routes->under( sub {
-    my $self = shift;
+  $routes->post('/login')->to('user#login');
+  $routes->any('/logout')->to('user#logout');
 
-    return $self->auth_fail unless $self->is_admin;
+  my $if_admin = $routes->under(
+    sub {
+      my $self = shift;
 
-    return 1;
-  });
+      return $self->auth_fail unless $self->is_admin;
+
+      return 1;
+    }
+  );
 
   #$if_admin->get( '/admin/edit/:table/:id' )->to('admin#edit');
   #$if_admin->get( '/admin/list/:table' )->to('admin#list');
-  $if_admin->post( '/admin/save/:table' )->to('admin#save');
-  
-  $if_admin->get( '/admin/change/:table/:id' )->to('admin#change');
-  $if_admin->get( '/admin/show/:table' )->to('admin#show');  
+  $if_admin->post('/admin/save/:table')->to('admin#save');
+
+  $if_admin->get('/admin/change/:table/:id')->to('admin#change');
+  $if_admin->get('/admin/show/:table')->to('admin#show');
 
 }
 
@@ -121,8 +145,8 @@ AproJo - A time recording application based on Mojolicious
 
 =head1 SYNOPSIS
 
- $ timerec setup
- $ timerec daemon
+ $ aprojo setup
+ $ aprojo daemon
 
 =head1 DESCRIPTION
 
@@ -144,25 +168,25 @@ Although most of L<AproJo> is controlled by a configuration file, a few properti
 
 =over 
 
-=item C<TIMEREC_HOME>
+=item C<APROJO_HOME>
 
 This is the directory where L<AproJo> expects additional files. These include the configuration file and log files. The default value is the current working directory (C<cwd>).
 
-=item C<TIMEREC_CONFIG>
+=item C<APROJO_CONFIG>
 
-This is the full path to a configuration file. The default is a file named F<timerec.conf> in the C<TIMEREC_HOME> path, however this file need not actually exist, defaults may be used instead. This file need not be written by hand, it may be generated by the C<timerec config> command.
+This is the full path to a configuration file. The default is a file named F<aprojo.conf> in the C<APROJO_HOME> path, however this file need not actually exist, defaults may be used instead. This file need not be written by hand, it may be generated by the C<aprojo config> command.
 
 =back
 
-=head2 The F<timerec> command line application
+=head2 The F<aprojo> command line application
 
-L<AproJo> installs a command line application, C<timerec>. It inherits from the L<mojo> command, but it provides extra functions specifically for use with AproJo.
+L<AproJo> installs a command line application, C<aprojo>. It inherits from the L<mojo> command, but it provides extra functions specifically for use with AproJo.
 
 =head3 config
 
- $ timerec config [options]
+ $ aprojo config [options]
 
-This command writes a configuration file in your C<TIMEREC_HOME> path. It uses the preset defaults for all values, except that it prompts for a secret. This can be any string, however stronger is better. You do not need to memorize it or remember it. This secret protects the cookies employed by AproJo from being tampered with on the client side.
+This command writes a configuration file in your C<APROJO_HOME> path. It uses the preset defaults for all values, except that it prompts for a secret. This can be any string, however stronger is better. You do not need to memorize it or remember it. This secret protects the cookies employed by AproJo from being tampered with on the client side.
 
 L<AproJo> does not need to be configured, however it is recommended to do so to set your application's secret. 
 
@@ -170,25 +194,25 @@ The C<--force> option may be passed to overwrite any configuration file in the c
 
 =head3 setup
 
- $ timerec setup
+ $ aprojo setup
 
-This step is required. Run C<timerec setup> to setup a database. It will use the default DBI settings (SQLite) or whatever is setup in the C<GALILEO_CONFIG> configuration file.
+This step is required. Run C<aprojo setup> to setup a database. It will use the default DBI settings (SQLite) or whatever is setup in the C<GALILEO_CONFIG> configuration file.
 
 =head1 RUNNING THE APPLICATION
 
- $ timerec daemon
+ $ aprojo daemon
 
-After the database is has been setup, you can run C<timerec daemon> to start the server. 
+After the database is has been setup, you can run C<aprojo daemon> to start the server. 
 
-You may also use L<morbo> (Mojolicious' development server) or L<hypnotoad> (Mojolicious' production server). You may even use any other server that Mojolicious supports, however for full functionality it must support websockets. When doing so you will need to know the full path to the C<timerec> application. A useful recipe might be
+You may also use L<morbo> (Mojolicious' development server) or L<hypnotoad> (Mojolicious' production server). You may even use any other server that Mojolicious supports, however for full functionality it must support websockets. When doing so you will need to know the full path to the C<aprojo> application. A useful recipe might be
 
- $ hypnotoad `which timerec`
+ $ hypnotoad `which aprojo`
 
 where you may replace C<hypnotoad> with your server of choice.
 
 =head2 Logging
 
-Logging in L<AproJo> is the same as in L<Mojolicious|Mojolicious::Lite/Logging>. Messages will be printed to C<STDERR> unless a directory named F<log> exists in the C<TIMEREC_HOME> path, in which case messages will be logged to a file in that directory.
+Logging in L<AproJo> is the same as in L<Mojolicious|Mojolicious::Lite/Logging>. Messages will be printed to C<STDERR> unless a directory named F<log> exists in the C<APROJO_HOME> path, in which case messages will be logged to a file in that directory.
 
 =head1 TECHNOLOGIES USED
 
@@ -225,7 +249,7 @@ L<Contenticious> - File-based Markdown website application
 
 =head1 SOURCE REPOSITORY
 
-L<http://github.com/wollmers/timerec>
+L<http://github.com/wollmers/aprojo>
 
 =head1 AUTHOR
 
