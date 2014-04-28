@@ -12,9 +12,9 @@ my @modules = qw(
   AproJo::Front
   AproJo::Page
   AproJo::User
-  
+
   AproJo::DB::Schema
-  
+
   AproJo::DB::Schema::Result::Address
   AproJo::DB::Schema::Result::Article
   AproJo::DB::Schema::Result::Configuration
@@ -32,7 +32,7 @@ my @modules = qw(
   AproJo::DB::Schema::Result::UserGroup
   AproJo::DB::Schema::Result::UserRole
   AproJo::DB::Schema::Result::Usertime
-  
+
   AproJo::Form::Address
   AproJo::Form::Article
   AproJo::Form::Configuration
@@ -47,12 +47,10 @@ my @modules = qw(
   AproJo::Form::TimeEntry
   AproJo::Form::Unit
   AproJo::Form::User
-  
+
   Mojolicious::Plugin::Form
-  
-  MojoX::Form
-  MojoX::Form::Field
-  
+  Mojolicious::Plugin::Form::Base
+
   AproJo::I18N::de
   AproJo::I18N::en
 
@@ -61,7 +59,7 @@ my @modules = qw(
 eval "package AproJo::I18N; use base 'Locale::Maketext'; 1;";
 
 for my $module (@modules) {
-    use_ok($module);
+  use_ok($module);
 }
 
 done_testing;

@@ -11,15 +11,17 @@ use Mojo::JSON;
 my $json = Mojo::JSON->new;
 
 use Test::More;
-END{ done_testing(); }
+END { done_testing(); }
 
 use Test::Mojo;
 
 my $db = AproJo::DB::Schema->connect('dbi:SQLite:dbname=:memory:');
+
 AproJo::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin', $db);
-ok( $db->resultset('User')->single({name => 'admin'}), 'DB user works' );
 
+ok($db->resultset('User')->single({name => 'admin'}), 'DB user exists');
 
+is($db->resultset('User')->single({name => 'admin'})->password(),'pass','DB user has password');
 
 my $t = Test::Mojo->new(AproJo->new(db => $db));
 $t->ua->max_redirects(2);
@@ -27,36 +29,46 @@ $t->ua->max_redirects(2);
 subtest 'Anonymous User' => sub {
 
   # landing page
-  $t->get_ok('/')
-    ->status_is(200)
-    ->text_is( h2 => 'Testpage for AproJo' )
-    ->element_exists( 'a' );
+  $t->get_ok('/')->status_is(200)->text_is(h2 => 'Testpage for AproJo')
+    ->element_exists('a');
 
   # attempt to get non-existant page
-  $t->get_ok('/page/doesntexist')
-    ->status_is(404);
+  $t->get_ok('/page/doesntexist')->status_is(404);
 
 };
-
-
 
 subtest 'Do Login' => sub {
 
   # fail username
-  $t->post_ok( '/login' => {from => '/front/login', username => 'wronguser', password => 'pass' } )
+  $t->post_ok('/login' =>
+      form => {from => '/', username => 'wronguser', password => 'pass'})
     ->status_is(200);
 
   # fail password
-  $t->post_ok( '/login' => {from => '/front/login', username => 'admin', password => 'wrongpass' } )
+  $t->post_ok('/login' =>
+      form => {from => '/', username => 'admin', password => 'wrongpass'})
     ->status_is(200);
 
   # successfully login
-  $t->post_ok( '/login' => {from => '/front/home', username => 'admin', password => 'pass' } )
-    ->status_is(200);
+  $t->post_ok('/login' =>
+      form => {username => 'admin', password => 'pass'})
+    ->status_is(200)
+    ->text_like(span => qr/.*admin.*/)
+    ->text_like( 'a[href*="logout"]' => qr/Logout/ );
 
 };
 
+subtest 'Logging Out' => sub {
+  # This is essentially a repeat of the first test
+  $t->get_ok('/logout')
+    ->status_is(200)
+    ->text_like( 'a[href*="login"]' => qr/Login/ );
+};
+
 =comment
+
+
+
 
 subtest 'Edit Page' => sub {
 

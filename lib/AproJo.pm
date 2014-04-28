@@ -1,6 +1,8 @@
 package AproJo;
 use Mojo::Base 'Mojolicious';
 
+use Mojolicious 4.96;
+
 use Data::Dumper;
 
 our $VERSION = '0.003';
@@ -46,7 +48,21 @@ has config_file => sub {
 sub startup {
   my $app = shift;
 
-  $app->plugin(Config => {file => $app->config_file,});
+  $app->plugin(
+    Config => {
+      file    => $app->config_file,
+      default => {
+        'db_connect' => [
+          'dbi:SQLite:dbname=' . $app->home->rel_file('aprojo.db'),
+          undef,
+          undef,
+          {'sqlite_unicode' => 1}
+        ],
+        'db_schema' => 'AproJo::DB::Schema',
+        'secret'    => '47110815'
+      },
+    }
+  );
 
   $app->plugin('I18N');
 

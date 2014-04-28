@@ -12,10 +12,12 @@ sub login {
   my $schema = $self->schema;
 
   my $user = $schema->resultset('User')->single({name => $name});
+
   if ($user and $user->password eq $pass) {
-    $self->flash( onload_message => "Welcome Back!" );
+    #$self->flash( onload_message => "Welcome Back!" );
     $self->session->{id} = $user->user_id;
     $self->session->{username} = $name;
+    print STDERR 'login ',$name.' ok',"\n";
   } 
   else {
     $self->flash( onload_message => "Sorry try again" );
