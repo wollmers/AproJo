@@ -2,6 +2,9 @@ Revision history for AproJo.
 
 {{$NEXT}}
 
+0.004  2014-04-28 17:13:14 CEST
+       - debug failed login test
+
 0.003  2014-04-24 12:20:09 CEST
        - debug warnings (fails on CPANTesters), cleanup
 

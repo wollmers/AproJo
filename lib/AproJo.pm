@@ -5,7 +5,7 @@ use Mojolicious 4.96;
 
 use Data::Dumper;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 use File::Basename 'dirname';
 use File::Spec::Functions qw'rel2abs catdir';
