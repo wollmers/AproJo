@@ -68,7 +68,7 @@ sub startup {
 
   push @{$app->commands->namespaces}, 'AproJo::Command';
 
-  say STDERR 'namespaces: ', Dumper($app->commands->namespaces);
+  # say STDERR 'namespaces: ', Dumper($app->commands->namespaces);
 
   #DEPRECATED: $app->secret( $app->config->{secret} );
   $app->secrets([$app->config->{secret}]);
@@ -115,9 +115,11 @@ sub startup {
       my $self = shift;
       my $user = $self->get_user(@_);
       return undef unless $user;
-      my $role = $user->role->name;
-      print STDERR 'is_admin: ', $role, "\n";
-      return $user->role->name eq 'admin';
+      # my $role = $user->role->name; 
+      my $role = $user->roles()->single({name => 'admin'});
+      # print STDERR 'is_admin: ', $role, "\n";
+      #return $user->role->name eq 'admin';
+      return ($role && $role->name eq 'admin');
     }
   );
 
