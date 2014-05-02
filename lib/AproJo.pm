@@ -1,8 +1,6 @@
 package AproJo;
 use Mojo::Base 'Mojolicious';
 
-use Mojolicious 4.96;
-
 use Data::Dumper;
 
 our $VERSION = '0.004';

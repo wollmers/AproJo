@@ -17,6 +17,7 @@ requires 'File::Copy::Recursive', '0';
 requires 'File::Next', '0';
 requires 'File::Spec::Functions', '0';
 requires 'Getopt::Long', '0';
+requires 'Encode', '0';
 
 # requires 'Some::Module', 'VERSION';
 
