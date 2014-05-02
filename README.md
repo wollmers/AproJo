@@ -51,7 +51,7 @@ The `--force` option may be passed to overwrite any configuration file in the cu
 
     $ aprojo setup
 
-This step is required. Run `aprojo setup` to setup a database. It will use the default DBI settings (SQLite) or whatever is setup in the `GALILEO_CONFIG` configuration file.
+This step is required. Run `aprojo setup` to setup a database. It will use the default DBI settings (SQLite) or whatever is setup in the `APROJO_CONFIG` configuration file.
 
 # RUNNING THE APPLICATION
 
