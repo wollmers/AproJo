@@ -43,6 +43,7 @@
             "DBIx::Class::DeploymentHandler" : "0",
             "DBIx::Class::EncodedColumn" : "0",
             "DBIx::Class::Schema" : "0",
+            "Encode" : "0",
             "File::Basename" : "0",
             "File::Copy::Recursive" : "0",
             "File::Next" : "0",
@@ -75,7 +76,7 @@
          "web" : "https://github.com/wollmers/AproJo"
       }
    },
-   "version" : "0.004",
+   "version" : "0.005",
    "x_contributors" : [
       "Helmut Wollmersdorfer <helmut@wollmersdorfer.at>",
       "wollmers <helmut.wollmersdorfer@fixpunkt.de>"
