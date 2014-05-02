@@ -212,7 +212,7 @@ The C<--force> option may be passed to overwrite any configuration file in the c
 
  $ aprojo setup
 
-This step is required. Run C<aprojo setup> to setup a database. It will use the default DBI settings (SQLite) or whatever is setup in the C<GALILEO_CONFIG> configuration file.
+This step is required. Run C<aprojo setup> to setup a database. It will use the default DBI settings (SQLite) or whatever is setup in the C<APROJO_CONFIG> configuration file.
 
 =head1 RUNNING THE APPLICATION
 
