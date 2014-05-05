@@ -35,6 +35,11 @@ sub save {
     $data->{$param} = (exists $data->{$param} && $data->{$param} eq 'on') ? 1 : 0;   
   }
 
+  my $id_field = $form->id_field;
+  if (exists $data->{$id_field} && !$data->{$id_field}) {
+      delete $data->{$id_field};
+  }
+
   my $rs = $self->schema->resultset($table);
   $rs->update_or_create($data);
   

@@ -27,6 +27,8 @@ has db => sub {
   return $schema;
 };
 
+has app_debug => 1; 
+
 has home_path => sub {
   my $path = $ENV{MOJO_HOME} || getcwd;
   return File::Spec->rel2abs($path);
@@ -41,6 +43,7 @@ has config_file => sub {
 #return "$ENV{MOJO_HOME}/timerec.conf" if $ENV{MOJO_HOME};
 #return "$ENV{DOCUMENT_ROOT}/timerec.conf" if $ENV{DOCUMENT_ROOT};
 #return "/var/www/timerec/timerec.conf" if (-f "/var/www/timerec/timerec.conf");
+
 };
 
 sub startup {
@@ -106,7 +109,7 @@ sub startup {
         $name = $self->session->{username};
       }
       return undef unless $name;
-      print STDERR 'get_user: ', $name, "\n";
+      say STDERR 'get_user: ', $name if $self->app->app_debug;
       return $self->schema->resultset('User')->single({name => $name});
     }
   );

@@ -13,6 +13,8 @@ has 'element_info' => sub {
 
 has 'id_field';
 
+has 'name_field';
+
 has 'order_by';
 
 sub add_elements {
@@ -53,8 +55,11 @@ sub from_schema {
   my $columns_info = $schema->source($source)->columns_info($columns);
 
   # TODO: smarter
-  my $primary_columns = [$schema->source($source)->primary_columns];
-  $self->id_field($primary_columns->[0]);
+  #my $primary_columns = [$schema->source($source)->primary_columns];
+  #$self->id_field($primary_columns->[0]);
+  my ($id_field,$name_field) = $self->id_and_name($schema, $source);
+  $self->id_field($id_field);
+  $self->name_field($name_field);
 
   my $relationships = [$schema->source($source)->relationships];
 
@@ -175,7 +180,8 @@ sub id_and_name {
   my @primary_columns = $schema->source($source)->primary_columns;
   push @source_ids, $primary_columns[0];
   push @source_ids, grep {/name/} @columns;
-  push @source_ids, $primary_columns[1] unless (scalar @source_ids >= 2);
+  #push @source_ids, $primary_columns[1] unless (scalar @source_ids >= 2);
+  push @source_ids, $columns[1] unless (scalar @source_ids >= 2);
 
   return @source_ids;
 }

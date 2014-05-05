@@ -3,6 +3,7 @@
 % my $columns = [schema->source($table)->columns];
 % my $order = $form->order_by;
 % my $id_field = $form->id_field;
+% my $name_field = $form->name_field;
 % my $object = $table;
 
 % my $result = schema->resultset($table)->single({$id_field => $id});
@@ -28,14 +29,17 @@
         % my $rel_class = schema->source($table)->_relationships->{$col_base}->{class};
         % $rel_class =~ s/^.*::([a-zA-Z_]+)$/$1/;
         % my $rel_result = schema->resultset($rel_class)->search;
-        % my $rel_order = source_id($rel_class);
+        % # my $rel_order = source_id($rel_class);
+        % my $rel_form = form_handler($rel_class);
+        % my $rel_order = $rel_form->order_by;
+        % my $rel_name = $rel_form->name_field;
            
         % while ( my $rel_record = $rel_result->next ) {        
           % if ($result && $result->$column eq $rel_record->$rel_order ) {
-        <option selected="selected" value="<%= $result->$column %>"><%= $rel_record->name %></option>
+        <option selected="selected" value="<%= $result->$column %>"><%= $rel_record->$rel_name %></option>
           % }
           % else {
-        <option value="<%= $rel_record->$rel_order %>"><%= $rel_record->name %></option>
+        <option value="<%= $rel_record->$rel_order %>"><%= $rel_record->$rel_name %></option>
           % }          
         % }             
       </select> 

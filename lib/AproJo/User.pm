@@ -17,7 +17,7 @@ sub login {
     #$self->flash( onload_message => "Welcome Back!" );
     $self->session->{id} = $user->user_id;
     $self->session->{username} = $name;
-    print STDERR 'login ',$name.' ok',"\n";
+    #print STDERR 'login ',$name.' ok',"\n";
   } 
   else {
     $self->flash( onload_message => "Sorry try again" );

@@ -10,7 +10,7 @@
 <h2>%ENV</h2>
 
 <pre>
-<%= dumper \%ENV %>
+<%=  dumper \%ENV %>
 </pre>
 
 
