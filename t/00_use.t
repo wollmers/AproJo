@@ -7,10 +7,8 @@ use lib qw( ../lib );
 my @modules = qw(
   AproJo
   AproJo::Admin
-  AproJo::Edit
   AproJo::Form
   AproJo::Front
-  AproJo::Page
   AproJo::User
 
   AproJo::DB::Schema
