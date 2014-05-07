@@ -71,13 +71,13 @@ sub startup {
   
   {
     # use content from directories under lib/AproJo/files or using File::ShareDir
-    my $lib_base = catdir(dirname(rel2abs(__FILE__)), 'AproJo', 'files');
+    my $lib_base = catdir(dirname(rel2abs(__FILE__)), '..', 'share','files');
 
     my $public = catdir($lib_base, 'public');
-    $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('AproJo'), 'public');
+    $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('AproJo'), 'share','public');
 
     my $templates = catdir($lib_base, 'templates');
-    $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'templates');
+    $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'share','templates');
   }
 
   push @{$app->commands->namespaces}, 'AproJo::Command';
