@@ -1,6 +1,7 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+       - adapted foldernames for CPAN
 
 0.005  2014-05-02 12:50:08 CEST
        - correct versions
