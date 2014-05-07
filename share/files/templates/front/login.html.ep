@@ -1,9 +1,6 @@
 % layout 'default';
 % title 'AproJo - Accounts, Projects and Jobs';
-
-
-
-				
+			
 <!-- MAIN -->											
 
 <div class="container">
@@ -67,15 +64,6 @@
                 </div>
             </fieldset>
                      
-            <hr>
-			<div class="type-button">
-				<div class="float_left">
-					<a href="RecoverPassword"><%= l 'lost password?' %>  ▶</a><br>	
-				</div>
-                <div class="float_left">
-                    <a href="RecoverPassword"><%= l 'register newly' %>  ▶</a><br> 
-                </div>				
-			</div>
 			</form>
 		</div><!-- END VALIDATION GROUP -->
     </div><!-- END LOGIN WIDGET -->
