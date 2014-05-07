@@ -14,22 +14,23 @@ sub login {
   my $user = $schema->resultset('User')->single({name => $name});
 
   if ($user and $user->password eq $pass) {
-    #$self->flash( onload_message => "Welcome Back!" );
-    $self->session->{id} = $user->user_id;
+
+    $self->session->{id}       = $user->user_id;
     $self->session->{username} = $name;
-    #print STDERR 'login ',$name.' ok',"\n";
-  } 
-  else {
-    $self->flash( onload_message => "Sorry try again" );
+
   }
+  else {
+    $self->flash(onload_message => "Sorry try again");
+  }
+
   #$self->redirect_to( $from );
-  $self->redirect_to( "/" );
+  $self->redirect_to("/");
 }
 
 sub logout {
   my $self = shift;
-  $self->session( expires => 1 );
-  $self->redirect_to( $self->home_page );
+  $self->session(expires => 1);
+  $self->redirect_to($self->home_page);
 }
 
 1;

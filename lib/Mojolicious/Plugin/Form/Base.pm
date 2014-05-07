@@ -57,13 +57,13 @@ sub from_schema {
   # TODO: smarter
   #my $primary_columns = [$schema->source($source)->primary_columns];
   #$self->id_field($primary_columns->[0]);
-  my ($id_field,$name_field) = $self->id_and_name($schema, $source);
+  my ($id_field, $name_field) = $self->id_and_name($schema, $source);
   $self->id_field($id_field);
   $self->name_field($name_field);
 
   my $relationships = [$schema->source($source)->relationships];
 
-  #print STDERR '$relationships: ',Dumper($relationships),"\n";
+  print STDERR '$relationships: ', Dumper($relationships), "\n";
 
   my $rel_elements;
   for my $relation (@$relationships) {
@@ -118,8 +118,9 @@ sub related {
 
   my $rel_info = $schema->source($source)->relationship_info($relation);
 
-  #print STDERR '$rel_info: ',Dumper($rel_info),"\n";
+  print STDERR '$rel_info: ', Dumper($rel_info), "\n";
 
+  # TODO: accessor 'multi' (???)
   return undef unless ($rel_info->{attrs}->{accessor} eq 'single');
 
   my $rel_source =
@@ -180,6 +181,7 @@ sub id_and_name {
   my @primary_columns = $schema->source($source)->primary_columns;
   push @source_ids, $primary_columns[0];
   push @source_ids, grep {/name/} @columns;
+
   #push @source_ids, $primary_columns[1] unless (scalar @source_ids >= 2);
   push @source_ids, $columns[1] unless (scalar @source_ids >= 2);
 

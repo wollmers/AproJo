@@ -9,16 +9,35 @@
 
 <h2>%ENV</h2>
 
-<pre>
-<%=  dumper \%ENV %>
-</pre>
+%= tag table => class => "table table-striped table-bordered table-condensed" => begin
+  %= tag tr => begin
+    % for my $header (qw(key value)) {
+      %= tag th =>  l $header 
+    % } 
+  %= end
+  % for my $key (sort keys %ENV) {
+      %= tag tr => begin
+        %= tag td =>  $key
+        %= tag td =>  $ENV{$key}
+      %= end
+  % }
+%= end
 
 
 <h2>Perl @INC</h2>
 
-<pre>
-<%= dumper \@INC %>
-</pre>
+%= tag table => class => "table table-striped table-bordered table-condensed" => begin
+  %= tag tr => begin
+    % for my $header (qw(path)) {
+      %= tag th =>  l $header 
+    % } 
+  %= end
+  % for my $path (@INC) {
+      %= tag tr => begin
+        %= tag td =>  $path 
+      %= end
+  % }
+%= end
 
 <h2>Schema sources and classes</h2>
 
@@ -40,9 +59,27 @@
 
 <h2>Perl %INC</h2>
 
-<pre>
-<%= dumper \%INC %>
-</pre>
+%= tag table => class => "table table-striped table-bordered table-condensed" => begin
+  %= tag tr => begin
+    % for my $header (qw(file version path)) {
+      %= tag th =>  l $header 
+    % } 
+  %= end
+  % for my $key (sort keys %INC) {
+      % my $module = $key;
+      % $module =~ s{\/}{::}gsmx;
+      % $module =~ s/.pm$//g;
+      % my $version; 
+      % { no strict 'refs';
+        % $version = ${$module . "::VERSION"} || '';
+      % }
+      %= tag tr => begin
+        %= tag td =>  $key
+        %= tag td =>  $version
+        %= tag td =>  $INC{$key}
+      %= end
+  % }
+%= end
 
 <p>Number of modules: <%= scalar keys %INC %></p>
 

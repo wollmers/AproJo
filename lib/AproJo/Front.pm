@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
   my $self = shift;
 
-  # Render template "front/index.html.ep" 
+  # Render template "front/index.html.ep"
   $self->render();
 }
 
@@ -14,9 +14,9 @@ sub page {
 
   my $name = $self->param('name');
 
-  # Render $page 
-  $self->render_not_found unless
-    $self->render(template => "front/$name");
+  # Render $page
+  $self->render_not_found
+    unless $self->render(template => "front/$name");
 }
 
 1;
