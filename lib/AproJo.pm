@@ -68,6 +68,17 @@ sub startup {
   $app->plugin('I18N');
 
   $app->plugin('Mojolicious::Plugin::Form');
+  
+  {
+    # use content from directories under lib/AproJo/files or using File::ShareDir
+    my $lib_base = catdir(dirname(rel2abs(__FILE__)), 'AproJo', 'files');
+
+    my $public = catdir($lib_base, 'public');
+    $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('AproJo'), 'public');
+
+    my $templates = catdir($lib_base, 'templates');
+    $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'templates');
+  }
 
   push @{$app->commands->namespaces}, 'AproJo::Command';
 
