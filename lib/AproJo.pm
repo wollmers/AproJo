@@ -74,10 +74,12 @@ sub startup {
     my $lib_base = catdir(dirname(rel2abs(__FILE__)), '..', 'share','files');
 
     my $public = catdir($lib_base, 'public');
-    $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('AproJo'), 'share','public');
+    $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('AproJo'), 'files','public');
+    my $static_path = $app->static->paths->[0];
+    print STDERR '$static_path: ',$static_path,"\n";
 
     my $templates = catdir($lib_base, 'templates');
-    $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'share','templates');
+    $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'files','templates');
   }
 
   push @{$app->commands->namespaces}, 'AproJo::Command';
