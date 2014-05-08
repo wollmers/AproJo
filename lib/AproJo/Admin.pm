@@ -3,9 +3,6 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Data::Dumper;
 
-#sub edit { shift->render }
-#sub list { shift->render }
-
 sub change { shift->render }
 
 sub show {

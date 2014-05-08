@@ -46,9 +46,6 @@ my @modules = qw(
   AproJo::Form::Unit
   AproJo::Form::User
 
-  Mojolicious::Plugin::Form
-  Mojolicious::Plugin::Form::Base
-
   AproJo::I18N::de
   AproJo::I18N::en
 
