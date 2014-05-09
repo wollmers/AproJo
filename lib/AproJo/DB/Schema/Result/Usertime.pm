@@ -1,5 +1,3 @@
-use utf8;
-
 package AproJo::DB::Schema::Result::Usertime;
 
 use strict;

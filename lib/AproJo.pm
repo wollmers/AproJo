@@ -39,11 +39,6 @@ has config_file => sub {
   return $ENV{APROJO_CONFIG} if $ENV{APROJO_CONFIG};
 
   return rel2abs('aprojo.conf', $self->home_path);
-
-#return "$ENV{MOJO_HOME}/timerec.conf" if $ENV{MOJO_HOME};
-#return "$ENV{DOCUMENT_ROOT}/timerec.conf" if $ENV{DOCUMENT_ROOT};
-#return "/var/www/timerec/timerec.conf" if (-f "/var/www/timerec/timerec.conf");
-
 };
 
 sub startup {
@@ -70,7 +65,7 @@ sub startup {
   $app->plugin('Mojolicious::Plugin::Form');
   
   {
-    # use content from directories under lib/AproJo/files or using File::ShareDir
+    # use content from directories under share/files or using File::ShareDir
     my $lib_base = catdir(dirname(rel2abs(__FILE__)), '..', 'share','files');
 
     my $public = catdir($lib_base, 'public');
@@ -83,8 +78,6 @@ sub startup {
   }
 
   push @{$app->commands->namespaces}, 'AproJo::Command';
-
-  # say STDERR 'namespaces: ', Dumper($app->commands->namespaces);
 
   #DEPRECATED: $app->secret( $app->config->{secret} );
   $app->secrets([$app->config->{secret}]);
@@ -122,26 +115,31 @@ sub startup {
         $name = $self->session->{username};
       }
       return undef unless $name;
-      say STDERR 'get_user: ', $name if $self->app->app_debug;
+      # say STDERR 'get_user: ', $name if $self->app->app_debug;
       return $self->schema->resultset('User')->single({name => $name});
     }
   );
+  
+  $app->helper(
+    'has_role' => sub {
+      my $self = shift;
+      my $user_string = shift || '';
+      my $role_string = shift || '';
+      my $user = $self->get_user($user_string);
+      return undef unless $user;
+      my $role = $user->roles()->single({name => $role_string});
+      return ($role && $role->name eq $role_string);
+    }
+  );  
   $app->helper(
     'is_admin' => sub {
-      my $self = shift;
-      my $user = $self->get_user(@_);
-      return undef unless $user;
-      # my $role = $user->role->name; 
-      my $role = $user->roles()->single({name => 'admin'});
-      # print STDERR 'is_admin: ', $role, "\n";
-      #return $user->role->name eq 'admin';
-      return ($role && $role->name eq 'admin');
+      my ($self,$user) = @_;
+      return $self->has_role($self,$user,'admin');
     }
   );
 
   my $routes = $app->routes;
 
-  # Normal route to controller
   $routes->get('/')->to('front#index');
   $routes->get('/front/*name')->to('front#page');
   $routes->post('/save')->to('front#save');
@@ -151,15 +149,11 @@ sub startup {
   my $if_admin = $routes->under(
     sub {
       my $self = shift;
-
       return $self->auth_fail unless $self->is_admin;
-
       return 1;
     }
   );
 
-  #$if_admin->get( '/admin/edit/:table/:id' )->to('admin#edit');
-  #$if_admin->get( '/admin/list/:table' )->to('admin#list');
   $if_admin->post('/admin/save/:table')->to('admin#save');
 
   $if_admin->get('/admin/change/:table/:id')->to('admin#change');
