@@ -27,7 +27,7 @@ has db => sub {
   return $schema;
 };
 
-has app_debug => 1; 
+has app_debug => 0; 
 
 has home_path => sub {
   my $path = $ENV{MOJO_HOME} || getcwd;
@@ -115,7 +115,7 @@ sub startup {
         $name = $self->session->{username};
       }
       return undef unless $name;
-      # say STDERR 'get_user: ', $name if $self->app->app_debug;
+      say STDERR 'get_user: ', $name if $self->app->app_debug;
       return $self->schema->resultset('User')->single({name => $name});
     }
   );
@@ -128,13 +128,14 @@ sub startup {
       my $user = $self->get_user($user_string);
       return undef unless $user;
       my $role = $user->roles()->single({name => $role_string});
+      say STDERR 'has_role: ', $role->name if $self->app->app_debug;
       return ($role && $role->name eq $role_string);
     }
   );  
   $app->helper(
     'is_admin' => sub {
       my ($self,$user) = @_;
-      return $self->has_role($self,$user,'admin');
+      return $self->has_role($user,'admin');
     }
   );
 
@@ -292,3 +293,4 @@ it under the same terms as Perl itself.
 
 
 
+      

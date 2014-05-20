@@ -1,5 +1,6 @@
 % my $form = form_handler($table);
-% my $columns = $form->from_schema(schema,$table)->ordered_elements;
+% my $schema = schema;
+% my $columns = $form->from_schema($schema,$table)->ordered_elements;
 % my $order = $form->order_by;
 % my $id_field = $form->id_field;
 % my $object = $table;

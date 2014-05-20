@@ -5,5 +5,5 @@
 <p><%= ucfirst $table %></p>
 <p><a href="/admin/change/<%= $table %>/0">New <%= $table %></a></p>
 
-<%= include 'front/macros/show', table => $table %>
+<%=  include 'front/macros/show', table => $table %>
 

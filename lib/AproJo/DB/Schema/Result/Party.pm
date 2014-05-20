@@ -1,5 +1,3 @@
-use utf8;
-
 package AproJo::DB::Schema::Result::Party;
 
 use strict;
@@ -15,11 +13,11 @@ __PACKAGE__->add_columns(
   "name",
   {data_type => "varchar", is_nullable => 0, size => 50},
   "address_id",
-  {data_type => "integer", is_nullable => 0},
+  {data_type => "integer", is_nullable => 0, is_foreign_key => 1},
   "billingaddress_id",
-  {data_type => "integer", is_nullable => 0},
+  {data_type => "integer", is_nullable => 0, is_foreign_key => 1},
   "deliveryaddress_id",
-  {data_type => "integer", is_nullable => 0},
+  {data_type => "integer", is_nullable => 0, is_foreign_key => 1},
   "comment",
   {data_type => "text", default_value => '', is_nullable => 1},
 );

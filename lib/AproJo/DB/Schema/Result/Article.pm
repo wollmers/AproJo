@@ -15,7 +15,12 @@ __PACKAGE__->add_columns(
   'description_long',
   {data_type => 'varchar', default_value => '', is_nullable => 1, size => 255},
   'unit_id',
-  {data_type => 'integer', default_value => 1, is_nullable => 0},
+  {
+    data_type      => 'integer',
+    default_value  => 1,
+    is_nullable    => 0,
+    is_foreign_key => 1
+  },
   'price',
   {
     data_type     => 'decimal',
@@ -24,7 +29,7 @@ __PACKAGE__->add_columns(
     size          => [10, 2],
   },
   'timeable',
-  {data_type => 'integer', default_value => 0, is_nullable => 1},
+  {data_type => 'tinyint', default_value => 0, is_nullable => 1},
 );
 
 __PACKAGE__->set_primary_key('article_id');

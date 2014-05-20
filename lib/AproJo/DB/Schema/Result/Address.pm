@@ -19,7 +19,7 @@ __PACKAGE__->add_columns(
   'department',
   {data_type => 'varchar', default_value => '', is_nullable => 1, size => 50},
   'contact_id',
-  {data_type => 'integer', is_nullable => 0},
+  {data_type => 'integer', is_nullable => 0, is_foreign_key => 1},
   'street',
   {data_type => 'varchar', default_value => '', is_nullable => 1, size => 50},
   'zip',

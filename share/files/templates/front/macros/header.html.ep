@@ -11,6 +11,12 @@
                          | 
 % if ($user) {                                          
         <a href="/logout" title="<%= l 'logout from system' %>"><%= l 'logout' %></a> (<%== $user %>)
+        % my $user_rs = get_user($user);
+        % my $roles = $user_rs->roles();
+        % while (my $role = $roles->next)  {
+          <%== $role->name %>
+        % }
+        
 % } else {
         <a href="/front/login" title="<%= l 'log into system' %>"><%= l 'login' %></a>
 % }              
