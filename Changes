@@ -1,6 +1,7 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+       - add travis
 
 0.008  2014-05-08 14:16:14 CEST
        - move Mojolicious::Plugin::Form to its own dist

@@ -170,6 +170,12 @@ __END__
 
 AproJo - A time recording application based on Mojolicious
 
+=for html
+
+<a href="https://travis-ci.org/wollmers/AproJo"><img src="https://travis-ci.org/wollmers/AproJo.png" alt="AproJo"></a>
+<a href='https://coveralls.io/r/wollmers/AproJo?branch=master'><img src='https://coveralls.io/repos/wollmers/AproJo/badge.png?branch=master' alt='Coverage Status' /></a>
+
+
 =head1 SYNOPSIS
 
  $ aprojo setup
