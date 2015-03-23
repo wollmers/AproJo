@@ -15,11 +15,11 @@ BEGIN{
 }
 
 # Source directory has precedence
-##my @base = (splitdir(dirname(__FILE__)), '..');
-##my $lib = join('/', @base, 'lib');
-##-e catdir(@base, 't') ? unshift(@INC, $lib) : push(@INC, $lib);
+my @base = (splitdir(dirname(__FILE__)), '..');
+my $lib = join('/', @base, 'lib');
+-e catdir(@base, 't') ? unshift(@INC, $lib) : push(@INC, $lib);
 
-use lib ( "$ENV{MOJO_HOME}/lib", "/home/helmutw/github/Mojolicious-Plugin-Form/lib");
+#use lib ( "$ENV{MOJO_HOME}/lib", "/home/helmutw/github/Mojolicious-Plugin-Form/lib");
 
 #print STDERR '@INC: ',Dumper(\@INC),"\n";
 
