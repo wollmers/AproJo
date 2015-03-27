@@ -18,7 +18,7 @@
   % for my $key (sort keys %ENV) {
       %= tag tr => begin
         %= tag td =>  $key
-        %= tag td =>  $ENV{$key}
+        %= tag td =>  $ENV{$key} // 'UNDEF'
       %= end
   % }
 %= end
@@ -83,7 +83,8 @@
 
 <p>Number of modules: <%= scalar keys %INC %></p>
 
-
+% my %h = (foo => undef);
+%= tag p =>  $h{foo}
 
 <br />
 <br />

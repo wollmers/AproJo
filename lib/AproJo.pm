@@ -61,6 +61,7 @@ sub startup {
   );
 
   $app->plugin('I18N');
+  $app->plugin('Mojolicious::Plugin::ServerInfo');
 
   $app->plugin('Mojolicious::Plugin::Form');
   
@@ -71,7 +72,7 @@ sub startup {
     my $public = catdir($lib_base, 'public');
     $app->static->paths->[0] = -d $public ? $public : catdir(dist_dir('AproJo'), 'files','public');
     my $static_path = $app->static->paths->[0];
-    print STDERR '$static_path: ',$static_path,"\n";
+    #print STDERR '$static_path: ',$static_path,"\n";
 
     my $templates = catdir($lib_base, 'templates');
     $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'files', 'templates');
@@ -115,7 +116,7 @@ sub startup {
         $name = $self->session->{username};
       }
       return undef unless $name;
-      say STDERR 'get_user: ', $name if $self->app->app_debug;
+      #say STDERR 'get_user: ', $name if $self->app->app_debug;
       return $self->schema->resultset('User')->single({name => $name});
     }
   );
@@ -128,7 +129,7 @@ sub startup {
       my $user = $self->get_user($user_string);
       return undef unless $user;
       my $role = $user->roles()->single({name => $role_string});
-      say STDERR 'has_role: ', $role->name if $self->app->app_debug;
+      #say STDERR 'has_role: ', $role->name if $self->app->app_debug;
       return ($role && $role->name eq $role_string);
     }
   );  

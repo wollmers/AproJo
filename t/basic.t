@@ -7,8 +7,7 @@ use AproJo;
 use AproJo::DB::Schema;
 use AproJo::Command::setup;
 
-use Mojo::JSON;
-my $json = Mojo::JSON->new;
+use Mojo::JSON qw(decode_json encode_json);
 
 use Test::More;
 END { done_testing(); }
@@ -111,7 +110,7 @@ subtest 'Edit Page' => sub {
 
   # save page
   my $text = 'I changed this text';
-  my $data = $json->encode({
+  my $data = encode_json({
     name  => 'home',
     title => 'New Home',
     html  => "<p>$text</p>",
@@ -135,7 +134,7 @@ subtest 'Edit Page' => sub {
     ->element_exists( '#wmd-preview' );
 
   # save page without title (error)
-  my $data_notitle = $json->encode({
+  my $data_notitle = encode_json({
     name  => 'notitle',
     title => '',
     html  => '<p>Hmmm no title</p>',
@@ -158,7 +157,7 @@ subtest 'Edit Main Navigation Menu' => sub {
     ->text_is( '#list-active-pages > #pages-2 > span' => $title );
 
   # remove about page from list
-  my $data = $json->encode({
+  my $data = encode_json({
     name => 'main',
     list => [],
   });
@@ -174,7 +173,7 @@ subtest 'Edit Main Navigation Menu' => sub {
     ->text_is( '#list-inactive-pages > #pages-2 > span' => $title );
 
   # put about page back
-  $data = $json->encode({
+  $data = encode_json({
     name => 'main',
     list => ['pages-2'],
   });
@@ -239,7 +238,7 @@ subtest 'Administer Users' => sub {
     ->element_exists( 'input#is_admin[checked=1]' );
 
   # change name
-  my $data = $json->encode({
+  my $data = encode_json({
     name => "admin",
     full => "New Name",
     is_author => 1,
@@ -257,7 +256,7 @@ subtest 'Administer Users' => sub {
     ->element_exists( 'input#full[value="New Name"]' );
 
   # attempt to change password, incorrectly
-  $data = $json->encode({
+  $data = encode_json({
     name => "admin",
     full => "New Name",
     pass1 => 'newpass',
@@ -273,7 +272,7 @@ subtest 'Administer Users' => sub {
   ok( $t->app->get_user('admin')->check_password('pass'), 'Password not changed on non-matching passwords');
 
   # change password, correctly
-  $data = $json->encode({
+  $data = encode_json({
     name => "admin",
     full => "New Name",
     pass1 => 'newpass',
@@ -293,7 +292,7 @@ subtest 'Administer Users' => sub {
 subtest 'Create New User' => sub {
 
   # attempt to create a user without providing a password (fails)
-  my $data = $json->encode({
+  my $data = encode_json({
     name => "someone",
     full => "Jane Dow",
     is_author => 1,
@@ -305,7 +304,7 @@ subtest 'Create New User' => sub {
     ->finish_ok;
 
   # create a user
-  $data = $json->encode({
+  $data = encode_json({
     name => "someone",
     full => "Jane Doe",
     pass1 => 'mypass',

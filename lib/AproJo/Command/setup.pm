@@ -6,9 +6,6 @@ use Term::Prompt qw/prompt/;
 has description => "Create the database for your AproJo application.\n";
 has usage       => "usage: $0 setup\n";
 
-#use Mojo::JSON;
-#my $json = Mojo::JSON->new();
-
 sub run {
   my ($self) = @_;
 
