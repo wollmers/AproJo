@@ -47,8 +47,10 @@
             "File::Spec::Functions" : "0",
             "Getopt::Long" : "0",
             "Mojolicious" : "3.0",
+            "Mojolicious::Plugin::DBInfo" : "0",
             "Mojolicious::Plugin::Form" : "0",
             "Mojolicious::Plugin::I18N" : "0",
+            "Mojolicious::Plugin::ServerInfo" : "0",
             "SQL::Translator" : "0",
             "Term::Prompt" : "0",
             "perl" : "5.010001"
@@ -61,7 +63,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/wollmers/AproJo/issues"
@@ -73,7 +75,7 @@
          "web" : "https://github.com/wollmers/AproJo"
       }
    },
-   "version" : "0.008",
+   "version" : "0.009",
    "x_contributors" : [
       "Helmut Wollmersdorfer <helmut@wollmersdorfer.at>",
       "Helmut Wollmersdorfer <helmut.wollmersdorfer@fixpunkt.de>",

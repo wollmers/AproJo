@@ -1,7 +1,11 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+
+0.009  2015-03-31 14:28:53 CEST
        - add travis
+       - add badges
+       - ServerInfo and DBInfo are now plugins with their own dist
 
 0.008  2014-05-08 14:16:14 CEST
        - move Mojolicious::Plugin::Form to its own dist
