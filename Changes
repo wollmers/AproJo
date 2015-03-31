@@ -2,6 +2,9 @@ Revision history for AproJo.
 
 {{$NEXT}}
 
+0.010  2015-03-31 15:31:46 CEST
+       - adapt dependencies
+
 0.009  2015-03-31 14:28:53 CEST
        - add travis
        - add badges
