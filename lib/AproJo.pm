@@ -62,6 +62,7 @@ sub startup {
 
   $app->plugin('I18N');
   $app->plugin('Mojolicious::Plugin::ServerInfo');
+  $app->plugin('Mojolicious::Plugin::DBInfo');
 
   $app->plugin('Mojolicious::Plugin::Form');
   
