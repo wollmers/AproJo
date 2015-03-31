@@ -8,6 +8,8 @@ AproJo - A time recording application based on Mojolicious
 
 <a href="https://travis-ci.org/wollmers/AproJo"><img src="https://travis-ci.org/wollmers/AproJo.png" alt="AproJo"></a>
 <a href='https://coveralls.io/r/wollmers/AproJo?branch=master'><img src='https://coveralls.io/repos/wollmers/AproJo/badge.png?branch=master' alt='Coverage Status' /></a>
+<a href='http://cpants.cpanauthors.org/dist/AproJo'><img src='http://cpants.cpanauthors.org/dist/AproJo.png' alt='Kwalitee Score' /></a>
+<a href="http://badge.fury.io/pl/AproJo"><img src="https://badge.fury.io/pl/AproJo.svg" alt="CPAN version" height="18"></a>
 
 # SYNOPSIS
 
@@ -95,9 +97,14 @@ Logging in [AproJo](https://metacpan.org/pod/AproJo) is the same as in [Mojolici
 
 Helmut Wollmersdorfer, <helmut.wollmersdorfer@gmail.com>
 
+<div>
+
+    <a href='http://cpants.cpanauthors.org/author/wollmers'><img src='http://cpants.cpanauthors.org/author/wollmers.png' alt='Kwalitee Score' /></a>
+</div>
+
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2013 by Helmut Wollmersdorfer
+Copyright (C) 2013-2015 by Helmut Wollmersdorfer
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

@@ -39,6 +39,7 @@
          "requires" : {
             "DBD::SQLite" : "0",
             "DBIx::Class" : "0",
+            "DBIx::Class::Candy" : "0",
             "DBIx::Class::Schema" : "0",
             "Encode" : "0",
             "File::Basename" : "0",
@@ -46,7 +47,7 @@
             "File::ShareDir" : "0",
             "File::Spec::Functions" : "0",
             "Getopt::Long" : "0",
-            "Mojolicious" : "3.0",
+            "Mojolicious" : "6.0",
             "Mojolicious::Plugin::DBInfo" : "0",
             "Mojolicious::Plugin::Form" : "0",
             "Mojolicious::Plugin::I18N" : "0",
@@ -63,7 +64,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/wollmers/AproJo/issues"
