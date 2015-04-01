@@ -10,7 +10,7 @@ requires 'DBIx::Class', '0';
 requires 'DBIx::Class::Candy', '0';
 requires 'DBIx::Class::Schema', '0';
 #requires 'DBIx::Class::EncodedColumn', '0';
-#requires 'DBIx::Class::DeploymentHandler', '0';
+requires 'DBIx::Class::DeploymentHandler', '0';
 #requires 'Crypt::Eksblowfish::Bcrypt', '0';
 requires 'SQL::Translator', '0';
 requires 'Term::Prompt', '0';
