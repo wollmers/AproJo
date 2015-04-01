@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious';
 
 use Data::Dumper;
 
-our $VERSION = '0.010';
+our $VERSION = '0.011';
 
 use File::Basename 'dirname';
 use File::Spec::Functions qw'rel2abs catdir';
