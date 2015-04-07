@@ -62,12 +62,6 @@ sub startup {
       },
     }
   );
-
-  $app->plugin('I18N');
-  $app->plugin('Mojolicious::Plugin::ServerInfo');
-  $app->plugin('Mojolicious::Plugin::DBInfo');
-
-  $app->plugin('Mojolicious::Plugin::Form');
   
   {
     # use content from directories under share/files or using File::ShareDir
@@ -81,6 +75,12 @@ sub startup {
     my $templates = catdir($lib_base, 'templates');
     $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'files', 'templates');
   }
+  
+  $app->plugin('I18N');
+  $app->plugin('Mojolicious::Plugin::ServerInfo');
+  $app->plugin('Mojolicious::Plugin::DBInfo');
+
+  $app->plugin('Mojolicious::Plugin::Form');
 
   push @{$app->commands->namespaces}, 'AproJo::Command';
 

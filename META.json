@@ -54,7 +54,7 @@
             "Getopt::Long" : "0",
             "Mojolicious" : "6.0",
             "Mojolicious::Plugin::DBInfo" : "0",
-            "Mojolicious::Plugin::Form" : "0",
+            "Mojolicious::Plugin::Form" : "0.005",
             "Mojolicious::Plugin::I18N" : "0",
             "Mojolicious::Plugin::ServerInfo" : "0",
             "SQL::Translator" : "0",
@@ -69,7 +69,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/wollmers/AproJo/issues"

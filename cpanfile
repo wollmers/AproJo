@@ -2,7 +2,7 @@ requires 'perl', '5.010001';
 
 requires 'Mojolicious', '6.0';
 requires 'Mojolicious::Plugin::I18N', '0';
-requires 'Mojolicious::Plugin::Form', '0';
+requires 'Mojolicious::Plugin::Form', '0.006';
 requires 'Mojolicious::Plugin::DBInfo', '0';
 requires 'Mojolicious::Plugin::ServerInfo', '0';
 requires 'DBD::SQLite', '0';
