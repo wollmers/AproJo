@@ -56,6 +56,14 @@ subtest 'Static File' => sub {
 
 };
 
+subtest 'Serverinfo' => sub {
+  $t->get_ok('/serverinfo')->status_is(200)->text_is(h1 => 'Serverinfo');
+};
+
+subtest 'DBInfo' => sub {
+  $t->get_ok('/dbinfo')->status_is(200)->text_is(h1 => 'Database Information');
+};
+
 subtest 'Anonymous User' => sub {
 
   # landing page

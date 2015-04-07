@@ -6,16 +6,19 @@ use Data::Dumper;
 our $VERSION = '0.011';
 
 use File::Basename 'dirname';
+use File::Spec;
 use File::Spec::Functions qw'rel2abs catdir';
 use File::ShareDir 'dist_dir';
 use Cwd;
+
+use Mojo::Home;
 
 has db => sub {
   my $self         = shift;
   my $schema_class = $self->config->{db_schema}
     or die "Unknown DB Schema Class";
   eval "require $schema_class"
-    or die "Could not load Schema Class ($schema_class), $@";
+    or die "Could not load Schema Class ($schema_class), $@\n";
 
   my $db_connect = $self->config->{db_connect}
     or die "No DBI connection string provided";
@@ -29,16 +32,16 @@ has db => sub {
 
 has app_debug => 0; 
 
-has home_path => sub {
+has home => sub {
   my $path = $ENV{MOJO_HOME} || getcwd;
-  return File::Spec->rel2abs($path);
+  return Mojo::Home->new(File::Spec->rel2abs($path));
 };
 
 has config_file => sub {
   my $self = shift;
   return $ENV{APROJO_CONFIG} if $ENV{APROJO_CONFIG};
 
-  return rel2abs('aprojo.conf', $self->home_path);
+  return $self->home->rel_file('aprojo.conf');
 };
 
 sub startup {
