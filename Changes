@@ -1,6 +1,7 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+       - debugging tests
 
 0.011  2015-04-01 17:54:09 CEST
        - adapt dependencies
