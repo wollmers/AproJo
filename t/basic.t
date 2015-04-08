@@ -30,20 +30,16 @@ my $admin_id = $admin->user_id();
 my $role = $db->resultset('Role')->single({name => 'admin'});
 my $role_id = $role->role_id();
 
-# print STDERR 'role_id: ',$role_id,' admin_id: ',$admin_id,"\n";
-
 my $userroles = $db->resultset('UserRole')->search({user_id => $admin_id,role_id => $admin_id});
+
+ok($userroles, 'admin has UserRole');
 
 my $adminroles = $admin->roles();
 
 my $adminrolename = $admin->roles()->single({name => 'admin'})->name();
-# print STDERR '$adminrolename: ',$adminrolename,"\n";
-
-#my $adminrolerelated = $admin->search_related('roles', {name => 'admin'});
 
 while (my $adminrole = $adminroles->next) {
-    my $rolename = $db->resultset('Role')->single({role_id => $adminrole->role_id})->name();
-    # print STDERR 'role: ',$rolename,"\n";
+  my $rolename = $db->resultset('Role')->single({role_id => $adminrole->role_id})->name();
 }
 
 
@@ -51,9 +47,7 @@ my $t = Test::Mojo->new(AproJo->new(db => $db));
 $t->ua->max_redirects(2);
 
 subtest 'Static File' => sub {
-
   $t->get_ok('/robots.txt')->status_is(200);
-
 };
 
 subtest 'Serverinfo' => sub {
@@ -65,14 +59,10 @@ subtest 'DBInfo' => sub {
 };
 
 subtest 'Anonymous User' => sub {
-
-  # landing page
   $t->get_ok('/')->status_is(200)->text_is(h2 => 'Testpage for AproJo')
     ->element_exists('a');
 
-  # attempt to get non-existant page
   $t->get_ok('/page/doesntexist')->status_is(404);
-
 };
 
 subtest 'Do Login' => sub {
