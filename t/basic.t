@@ -65,6 +65,13 @@ subtest 'Anonymous User' => sub {
   $t->get_ok('/page/doesntexist')->status_is(404);
 };
 
+subtest 'Anonymous User front/' => sub {
+  $t->get_ok('/front/index')->status_is(200)->text_is(h2 => 'Testpage for AproJo')
+    ->element_exists('a');
+
+  #$t->get_ok('/front/doesntexist')->status_is(404);
+};
+
 subtest 'Do Login' => sub {
 
   # fail username
