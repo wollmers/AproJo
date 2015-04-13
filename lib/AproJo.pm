@@ -190,7 +190,11 @@ AproJo - A time recording application based on Mojolicious
 
 =head1 DESCRIPTION
 
-L<AproJo> is a Perl web apllication.
+L<AproJo> is a Perl web application.
+
+=head1 STATUS
+
+L<AproJo> is still in pre-Alpha state. It still misses essential features to be useful in production.
 
 =head1 INSTALLATION
 
