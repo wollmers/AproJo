@@ -289,7 +289,7 @@ L<Contenticious> - File-based Markdown website application
 
 =head1 SOURCE REPOSITORY
 
-L<http://github.com/wollmers/aprojo>
+L<http://github.com/wollmers/AproJo>
 
 =head1 AUTHOR
 
