@@ -18,7 +18,11 @@ AproJo - A time recording application based on Mojolicious
 
 # DESCRIPTION
 
-[AproJo](https://metacpan.org/pod/AproJo) is a Perl web apllication.
+[AproJo](https://metacpan.org/pod/AproJo) is a Perl web application.
+
+# STATUS
+
+[AproJo](https://metacpan.org/pod/AproJo) is still in pre-Alpha state. It still misses essential features to be useful in production.
 
 # INSTALLATION
 
@@ -91,7 +95,7 @@ Logging in [AproJo](https://metacpan.org/pod/AproJo) is the same as in [Mojolici
 
 # SOURCE REPOSITORY
 
-[http://github.com/wollmers/aprojo](http://github.com/wollmers/aprojo)
+[http://github.com/wollmers/AproJo](http://github.com/wollmers/AproJo)
 
 # AUTHOR
 
