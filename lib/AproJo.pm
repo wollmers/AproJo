@@ -30,7 +30,7 @@ has db => sub {
   return $schema;
 };
 
-has app_debug => 0; 
+has app_debug => 0;
 
 has home => sub {
   my $path = $ENV{MOJO_HOME} || getcwd;
@@ -62,7 +62,7 @@ sub startup {
       },
     }
   );
-  
+
   {
     # use content from directories under share/files or using File::ShareDir
     my $lib_base = catdir(dirname(rel2abs(__FILE__)), '..', 'share','files');
@@ -75,7 +75,7 @@ sub startup {
     my $templates = catdir($lib_base, 'templates');
     $app->renderer->paths->[0] = -d $templates ? $templates : catdir(dist_dir('AproJo'), 'files', 'templates');
   }
-  
+
   $app->plugin('I18N');
   $app->plugin('Mojolicious::Plugin::ServerInfo');
   $app->plugin('Mojolicious::Plugin::DBInfo');
@@ -124,7 +124,7 @@ sub startup {
       return $self->schema->resultset('User')->single({name => $name});
     }
   );
-  
+
   $app->helper(
     'has_role' => sub {
       my $self = shift;
@@ -136,7 +136,7 @@ sub startup {
       #say STDERR 'has_role: ', $role->name if $self->app->app_debug;
       return ($role && $role->name eq $role_string);
     }
-  );  
+  );
   $app->helper(
     'is_admin' => sub {
       my ($self,$user) = @_;
@@ -177,10 +177,10 @@ AproJo - A time recording application based on Mojolicious
 
 =for html
 
-<a href="https://travis-ci.org/wollmers/AproJo"><img src="https://travis-ci.org/wollmers/AproJo.png" alt="AproJo"></a>
+<a href='https://travis-ci.org/wollmers/AproJo'><img src='https://travis-ci.org/wollmers/AproJo.png' alt="AproJo" /></a>
 <a href='https://coveralls.io/r/wollmers/AproJo?branch=master'><img src='https://coveralls.io/repos/wollmers/AproJo/badge.png?branch=master' alt='Coverage Status' /></a>
 <a href='http://cpants.cpanauthors.org/dist/AproJo'><img src='http://cpants.cpanauthors.org/dist/AproJo.png' alt='Kwalitee Score' /></a>
-<a href="http://badge.fury.io/pl/AproJo"><img src="https://badge.fury.io/pl/AproJo.svg" alt="CPAN version" height="18"></a>
+<a href='http://badge.fury.io/pl/AproJo'><img src='https://badge.fury.io/pl/AproJo.svg' alt='CPAN version' height='18' /></a>
 
 
 =head1 SYNOPSIS
@@ -210,7 +210,7 @@ when using L<App::cpanminus>. Of course you can use your favorite CPAN client or
 
 Although most of L<AproJo> is controlled by a configuration file, a few properties must be set before that file can be read. These properties are controlled by the following environment variables.
 
-=over 
+=over
 
 =item C<APROJO_HOME>
 
@@ -232,7 +232,7 @@ L<AproJo> installs a command line application, C<aprojo>. It inherits from the L
 
 This command writes a configuration file in your C<APROJO_HOME> path. It uses the preset defaults for all values, except that it prompts for a secret. This can be any string, however stronger is better. You do not need to memorize it or remember it. This secret protects the cookies employed by AproJo from being tampered with on the client side.
 
-L<AproJo> does not need to be configured, however it is recommended to do so to set your application's secret. 
+L<AproJo> does not need to be configured, however it is recommended to do so to set your application's secret.
 
 The C<--force> option may be passed to overwrite any configuration file in the current working directory. The default is to die if such a configuration file is found.
 
@@ -246,7 +246,7 @@ This step is required. Run C<aprojo setup> to setup a database. It will use the 
 
  $ aprojo daemon
 
-After the database is has been setup, you can run C<aprojo daemon> to start the server. 
+After the database is has been setup, you can run C<aprojo daemon> to start the server.
 
 You may also use L<morbo> (Mojolicious' development server) or L<hypnotoad> (Mojolicious' production server). You may even use any other server that Mojolicious supports, however for full functionality it must support websockets. When doing so you will need to know the full path to the C<aprojo> application. A useful recipe might be
 
@@ -262,19 +262,19 @@ Logging in L<AproJo> is the same as in L<Mojolicious|Mojolicious::Lite/Logging>.
 
 =over
 
-=item * 
+=item *
 
 L<Mojolicious|http://mojolicio.us> - a next generation web framework for the Perl programming language
 
-=item * 
+=item *
 
 L<DBIx::Class|http://www.dbix-class.org/> - an extensible and flexible Object/Relational Mapper written in Perl
 
-=item * 
+=item *
 
 L<Bootstrap|http://twitter.github.com/bootstrap> - the CSS/JS library from Twitter
 
-=item * 
+=item *
 
 L<jQuery|http://jquery.com/> - jQuery
 
