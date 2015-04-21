@@ -26,6 +26,11 @@ requires 'Encode', '0';
 # requires 'Some::Module', 'VERSION';
 
 on test => sub {
-    requires 'Test::More', '0.88';
-    requires 'File::Basename', '0';
+  requires 'Test::More', '0.88';
+  requires 'File::Basename', '0';
+};
+
+on 'develop' => sub {
+  recommends 'Test::Pod::Spelling::CommonMistakes';
+  recommends 'Test::Spelling';
 };
