@@ -3,13 +3,11 @@
 AproJo - A time recording application based on Mojolicious
 
 <div>
-
+    <a href='https://travis-ci.org/wollmers/AproJo'><img src='https://travis-ci.org/wollmers/AproJo.png' alt="AproJo" /></a>
+    <a href='https://coveralls.io/r/wollmers/AproJo?branch=master'><img src='https://coveralls.io/repos/wollmers/AproJo/badge.png?branch=master' alt='Coverage Status' /></a>
+    <a href='http://cpants.cpanauthors.org/dist/AproJo'><img src='http://cpants.cpanauthors.org/dist/AproJo.png' alt='Kwalitee Score' /></a>
+    <a href='http://badge.fury.io/pl/AproJo'><img src='https://badge.fury.io/pl/AproJo.svg' alt='CPAN version' height='18' /></a>
 </div>
-
-<a href="https://travis-ci.org/wollmers/AproJo"><img src="https://travis-ci.org/wollmers/AproJo.png" alt="AproJo"></a>
-<a href='https://coveralls.io/r/wollmers/AproJo?branch=master'><img src='https://coveralls.io/repos/wollmers/AproJo/badge.png?branch=master' alt='Coverage Status' /></a>
-<a href='http://cpants.cpanauthors.org/dist/AproJo'><img src='http://cpants.cpanauthors.org/dist/AproJo.png' alt='Kwalitee Score' /></a>
-<a href="http://badge.fury.io/pl/AproJo"><img src="https://badge.fury.io/pl/AproJo.svg" alt="CPAN version" height="18"></a>
 
 # SYNOPSIS
 
@@ -56,7 +54,7 @@ Although most of [AproJo](https://metacpan.org/pod/AproJo) is controlled by a co
 
 This command writes a configuration file in your `APROJO_HOME` path. It uses the preset defaults for all values, except that it prompts for a secret. This can be any string, however stronger is better. You do not need to memorize it or remember it. This secret protects the cookies employed by AproJo from being tampered with on the client side.
 
-[AproJo](https://metacpan.org/pod/AproJo) does not need to be configured, however it is recommended to do so to set your application's secret. 
+[AproJo](https://metacpan.org/pod/AproJo) does not need to be configured, however it is recommended to do so to set your application's secret.
 
 The `--force` option may be passed to overwrite any configuration file in the current working directory. The default is to die if such a configuration file is found.
 
@@ -70,7 +68,7 @@ This step is required. Run `aprojo setup` to setup a database. It will use the d
 
     $ aprojo daemon
 
-After the database is has been setup, you can run `aprojo daemon` to start the server. 
+After the database is has been setup, you can run `aprojo daemon` to start the server.
 
 You may also use [morbo](https://metacpan.org/pod/morbo) (Mojolicious' development server) or [hypnotoad](https://metacpan.org/pod/hypnotoad) (Mojolicious' production server). You may even use any other server that Mojolicious supports, however for full functionality it must support websockets. When doing so you will need to know the full path to the `aprojo` application. A useful recipe might be
 
@@ -102,7 +100,6 @@ Logging in [AproJo](https://metacpan.org/pod/AproJo) is the same as in [Mojolici
 Helmut Wollmersdorfer, <helmut.wollmersdorfer@gmail.com>
 
 <div>
-
     <a href='http://cpants.cpanauthors.org/author/wollmers'><img src='http://cpants.cpanauthors.org/author/wollmers.png' alt='Kwalitee Score' /></a>
 </div>
 
