@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious';
 
 use Data::Dumper;
 
-our $VERSION = '0.017';
+our $VERSION = '0.018';
 
 use File::Basename 'dirname';
 use File::Spec;
