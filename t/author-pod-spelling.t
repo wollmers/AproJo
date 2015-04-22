@@ -9,14 +9,20 @@ BEGIN {
 
 use Test::More;
 
-use Test::Spelling;
-
-add_stopwords(qw(
+eval "use Test::Spelling";
+if ( $@ ) {
+  plan skip_all => 'Test::Spelling required for testing POD';
+} 
+else {          
+  add_stopwords(qw(
      AproJo
      Helmut
      Mojolicious
      Wollmersdorfer
      jQuery
      websockets
-));
-all_pod_files_spelling_ok();
+  ));
+  all_pod_files_spelling_ok();
+}
+
+

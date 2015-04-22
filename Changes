@@ -1,6 +1,7 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+       - improve author tests
 
 0.016  2015-04-21 15:48:36 CEST
        - added spelling tests (AUTHOR_TESTING only)

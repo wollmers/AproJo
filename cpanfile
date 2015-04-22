@@ -31,6 +31,6 @@ on test => sub {
 };
 
 on 'develop' => sub {
-  recommends 'Test::Pod::Spelling::CommonMistakes';
-  recommends 'Test::Spelling';
+  requires 'Test::Pod::Spelling::CommonMistakes';
+  requires 'Test::Spelling';
 };

@@ -9,6 +9,11 @@ BEGIN {
 
 use Test::More;
 
-use Test::Pod::Spelling::CommonMistakes;
-all_pod_files_ok();
+eval "use Test::Pod::Spelling::CommonMistakes";
+if ( $@ ) {
+  plan skip_all => 'Test::Pod::Spelling::CommonMistakes required for testing POD';
+} 
+else {
+  all_pod_files_ok();
+}
 
