@@ -71,7 +71,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/wollmers/AproJo/issues"
@@ -83,7 +83,7 @@
          "web" : "https://github.com/wollmers/AproJo"
       }
    },
-   "version" : "0.016",
+   "version" : "0.017",
    "x_contributors" : [
       "Helmut Wollmersdorfer <helmut@wollmersdorfer.at>",
       "Helmut Wollmersdorfer <helmut.wollmersdorfer@fixpunkt.de>",
