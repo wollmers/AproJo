@@ -17,7 +17,10 @@ sub show {
 
 sub save {
   my $self   = shift;
-  my $params = [$self->req->param()];
+  
+  #$self->app->app_debug(1);
+  my $params = $self->req->params->names();
+  #say STDERR 'Admin::save() $params: ',Dumper($params) if $self->app->app_debug;
 
   my $table = $self->stash->{table};
 
@@ -55,11 +58,12 @@ sub save {
   }
 
   my $id_field = $form->id_field;
-  say STDERR 'Admin::save() $id_field: ',$id_field if $self->app->app_debug;
+  #say STDERR 'Admin::save() $id_field: ',$id_field if $self->app->app_debug;
   if (exists $data->{$id_field} && !$data->{$id_field}) {
     delete $data->{$id_field};
   }
-  say STDERR 'Admin::save() $data: ',Dumper($data) if $self->app->app_debug;
+  
+  #say STDERR 'Admin::save() $data: ',Dumper($data) if $self->app->app_debug;
 
   my $rs = $self->schema->resultset($table);
   $rs->update_or_create($data);

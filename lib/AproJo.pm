@@ -92,16 +92,6 @@ sub startup {
   $app->helper('home_page' => sub {'/'});
 
   $app->helper(
-    'auth_fail' => sub {
-      my $self = shift;
-      my $message = shift || "Not Authorized";
-      $self->flash(onload_message => $message);
-      $self->redirect_to($self->home_page);
-      return 0;
-    }
-  );
-
-  $app->helper(
     'source_id' => sub {
       my ($self, $source) = @_;
       return undef unless $source;

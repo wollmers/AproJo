@@ -15,8 +15,9 @@ sub page {
   my $name = $self->param('name');
 
   # Render $page
-  $self->render_not_found
-    unless $self->render(template => "front/$name");
+  #$self->reply->not_found
+  #  unless 
+    $self->render(template => "front/$name");
 }
 
 1;

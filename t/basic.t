@@ -16,6 +16,10 @@ use Test::Mojo;
 
 my $db = AproJo::DB::Schema->connect('dbi:SQLite:dbname=:memory:');
 
+#AproJo::Command::setup->run('admin', 'pass', 'Joe Admin',$db);
+
+#ok(AproJo::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin'),'DB created');
+
 AproJo::Command::setup->inject_sample_data('admin', 'pass', 'Joe Admin', $db);
 
 ok($db->resultset('User')->single({name => 'admin'}), 'DB user exists');
@@ -44,6 +48,16 @@ while (my $adminrole = $adminroles->next) {
 
 
 my $t = Test::Mojo->new(AproJo->new(db => $db));
+
+ok($t->app->has_role('admin','admin'),'admin has_role admin');
+ok(!$t->app->has_role('',''),'empty has_role false');
+ok(!$t->app->has_role('notexist',''),'notexist has_role is false');
+ok(!$t->app->has_role('notexist',''),'notexist has_role is false');
+ok(!$t->app->has_role('notexist','admin'),'notexist has_role admin is false');
+
+ok($t->app->source_id('User'),'schema User has source_id');
+ok(!$t->app->source_id(),'schema undef has no source_id');
+
 $t->ua->max_redirects(2);
 
 subtest 'Static File' => sub {
@@ -69,7 +83,7 @@ subtest 'Anonymous User front/' => sub {
   $t->get_ok('/front/index')->status_is(200)->text_is(h2 => 'Testpage for AproJo')
     ->element_exists('a');
 
-  #$t->get_ok('/front/doesntexist')->status_is(404);
+  $t->get_ok('/front/doesntexist')->status_is(404);
 };
 
 subtest 'Do Login' => sub {
@@ -83,6 +97,7 @@ subtest 'Do Login' => sub {
   $t->post_ok('/login' =>
       form => {from => '/', username => 'admin', password => 'wrongpass'})
     ->status_is(200);
+    
 
   # successfully login
   $t->post_ok('/login' =>
@@ -91,6 +106,25 @@ subtest 'Do Login' => sub {
     ->text_like(span => qr/.*admin.*/)
     ->text_like( 'a[href*="logout"]' => qr/Logout/ );
 
+};
+
+subtest 'Admin' => sub {
+  $t->get_ok('/admin/show/User')->status_is(200)->text_is(td => 'admin');
+  
+  $t->get_ok('/admin/show/User')->status_is(200)
+  	->element_exists('a[href="/admin/change/User/0"]');
+  	
+  $t->get_ok('/admin/change/User/0')->status_is(200)
+    ->element_exists('form[method="post"][action="/admin/save/User"]')
+    ->element_exists('input[name=name][type=text]')
+    ->element_exists('input[name=password]')
+    ;
+  $t->post_ok('/admin/save/User' => form => {
+    'name' => 'foo',
+    'password' => 'foo',
+    'active' => '1'
+    })
+    ->status_is(200);
 };
 
 subtest 'Logging Out' => sub {

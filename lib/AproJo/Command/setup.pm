@@ -4,26 +4,13 @@ use Mojo::Base 'Mojolicious::Command';
 use Term::Prompt qw/prompt/;
 
 has description => "Create the database for your AproJo application.\n";
-has usage       => "usage: $0 setup\n";
+has usage       => "usage: $0 setup user password fullname\n";
 
 sub run {
-  my ($self) = @_;
+  my $self = shift;
+  my ($user,$pass,$full) = @_;
 
-  my $user = prompt('x', 'Admin Username: ', '', '');
-  my $full = prompt('x', 'Admin Full Name: ', '', '');
-  my $pass1 = prompt('p', 'Admin Password: ', '', '');
-  print "\n";
-
-  #TODO check for acceptable password
-
-  my $pass2 = prompt('p', 'Repeat Admin Password: ', '', '');
-  print "\n";
-
-  unless ($pass1 eq $pass2) {
-    die "Passwords do not match";
-  }
-
-  $self->inject_sample_data($user, $pass1, $full);
+  $self->inject_sample_data(@_);
 
   print "Database created! Run 'aprojo daemon' to start the server.\n";
 }
