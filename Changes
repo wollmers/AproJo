@@ -1,6 +1,7 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+       - improve tests and coverage
 
 0.018  2015-04-22 14:30:01 CEST
        - improved travis coverage
