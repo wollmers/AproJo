@@ -1,6 +1,8 @@
 Revision history for AproJo.
 
 {{$NEXT}}
+
+0.019  2015-04-24 16:14:16 CEST
        - improve tests and coverage
 
 0.018  2015-04-22 14:30:01 CEST
